@@ -29,8 +29,7 @@ void Assignment ::setStat(string a)
 {
     if (a == "assigned") stat = Assigned;
     else if (a == "completed") stat = Completed;
-    else if (a == "late") stat = Late;
-    else throw std::exception("Invalid status");
+    else stat = Late;
 }
 
 //if this doesn't work, we can make it a member function. Or, we can manually access the attributes and print in the "save()" body
