@@ -24,11 +24,12 @@ struct Assignment {
     void setStat(string s); // change the status using the string
 };
 
+//the lowercase first letter is guaranteed from user entry, and assumed from the input file
 void Assignment ::setStat(string a)
 {
-    if (a == "assigned" || a == "Assigned") stat = Assigned;
-    else if (a == "completed" || a == "Completed") stat = Completed;
-    else if (a == "late" || a == "Late") stat = Late;
+    if (a == "assigned") stat = Assigned;
+    else if (a == "completed") stat = Completed;
+    else if (a == "late") stat = Late;
     else throw std::exception("Invalid status");
 }
 
