@@ -45,9 +45,9 @@ public:
 	string toString() const {
 		switch (format){
 		case DateFormat::US:
-			return to_string(month) + "/" + to_string(day) + "/" + to_string(year);
+			return to_string(month) + "-" + to_string(day) + "-" + to_string(year);
 		case DateFormat::Standard:
-			return to_string(year) + "/" + to_string(month) + "/" + to_string(day);
+			return to_string(year) + "-" + to_string(month) + "-" + to_string(day);
 		}
 	}
 
@@ -105,6 +105,13 @@ public:
 
 		return in;
 	}
+
+    friend ostream& operator << (ostream& out, const Date& d) {
+        std::string date = "";
+        out << d.toString();
+
+        return out;
+    }
 
 	//checks whether this date < another date
 	bool operator <(const Date& other) const{
