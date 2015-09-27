@@ -228,6 +228,24 @@ void load(list<Assignment>& assign, list<Assignment>& completed)
     }
 }
 
+//use this to search by assigned date. Can take either list and returns an iterator if it finds the assignment
+//should work on empty lists and in the "not found" case
+//it will return an iterator that compares as 'true' to any list.end() if no match is found
+list<Assignment>::iterator search(list<Assignment>& li, Date d)
+{
+    list<Assignment>::iterator itr = li.begin();
+    if (li.size() == 0) return itr;
+    
+    while (itr != li.end())
+    {
+        if (itr->assignedDate == d) return itr;
+        ++itr;
+    }
+
+    return itr;
+}
+
+
 //edit a date
 /*check the date*/
 /*find the node. then change the date*/
