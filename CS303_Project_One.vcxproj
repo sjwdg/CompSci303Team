@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D380C285-2D3A-4EFB-85D2-490FAC2C8A79}</ProjectGuid>
+    <ProjectGuid>{6BC5E6DC-D250-4F2D-8970-68CC6E7448A9}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Prog1</RootNamespace>
+    <RootNamespace>CS303_Project_One</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -52,7 +52,6 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -68,7 +67,6 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -79,15 +77,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MaintainQueue.cpp" />
-    <ClCompile Include="Prog1.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Instructor furnished Programs\Date\Date\Date.h" />
-    <ClInclude Include="..\..\..\Instructor furnished Programs\Date\Date\StringTokenizer.h" />
-    <ClInclude Include="..\..\..\Instructor furnished Programs\DoubleLinkedLists\DoubleLinkedLists\list_const_iterator.h" />
-    <ClInclude Include="..\..\..\Instructor furnished Programs\DoubleLinkedLists\DoubleLinkedLists\list_iterator.h" />
-    <ClInclude Include="DNode.h" />
+    <ClInclude Include="Date.h" />
+    <ClInclude Include="list.h" />
+    <ClInclude Include="list_const_iterator.h" />
+    <ClInclude Include="list_iterator.h" />
+    <ClInclude Include="StringTokenizer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
