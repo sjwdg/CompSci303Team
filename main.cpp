@@ -40,7 +40,7 @@ void Assignment ::setStat(string a)
      //print out the stuff
 
      cout << "Due: " << work.dueDate <<endl
-         << work.description << endl
+         << "Description: " << work.description << endl
          << "Assigned: " << work.assignedDate << endl
          << "Status: ";
 
@@ -101,14 +101,14 @@ list<Assignment>::iterator search(list<Assignment>& li, Date d)
 
 void display(const list<Assignment>& assign, const list<Assignment>& complete)
 {
-    cout << "Assigned List" << endl << "--------------------" << endl;
+    cout << "Assigned List" << endl << "----------------------------" << endl;
 
     for (list<Assignment>::const_iterator itr = assign.begin(); itr != assign.end(); itr++)
     {
         cout << *itr << endl;
     }
 
-    cout << endl << "Completed List" << endl << "--------------------" << endl;
+    cout << endl << "Completed List" << endl << "----------------------------" << endl;
 
     for (list<Assignment>::const_iterator itr = complete.begin(); itr != complete.end(); itr++)
     {
@@ -116,7 +116,7 @@ void display(const list<Assignment>& assign, const list<Assignment>& complete)
     }
 }
 
-//add
+//add from file
 /*Verify the assigment dates and such. If it is all good, continue*/
 /*Iterate to the place. Add the Node*/
 //WHICH LIST WILL BE DETERMINED BY THE STATUS
@@ -143,8 +143,8 @@ void addAssignment(list<Assignment>& chosen, Assignment& a)
 }
 
 
-//this can only add to the assignment list.
-void addAssignment(list<Assignment>& assigned, list<Assignment>& completed)
+//this can only add to the assignment list from the main menu Add.
+void addAssignMainMenu(list<Assignment>& assigned, list<Assignment>& completed)
 {
         Date due;
         Date assignDate;
@@ -152,25 +152,32 @@ void addAssignment(list<Assignment>& assigned, list<Assignment>& completed)
         string a;
         string describe;
         string status;
-
-            cout << "When was this assigned?: ";
+        
+            cout << "Note: All assignments added from main menu are automatically given" 
+               << "\na status of \"assigned\". Status can only be edited from the main "
+               << "\nmenu selection 5 (Complete assignment). \n\n";
+            cout << "When was this assigned? (mm-dd-yyyy): ";
             try
             {               
-                getline(cin, a);
-                assignDate = Date(a);
-                if (search(assigned, assignDate) != assigned.end())
+                getline(cin, a);//reads in the assignment date
+                assignDate = Date(a);//checks and creates a date object
+
+                //Note there currently is not a check on entering date as a letter.  Letters translates to a 1-1-1 DATE
+                
+                //searches assigned and completed list to see if date already exists.
+                if (search(assigned, assignDate) != assigned.end() || search(completed, assignDate) != completed.end())
                 {
-                    cout << "Assignment for date already exists. Returning to main menu\n";
+                    cout << "Assignment for date " << assignDate << " already exists. Returning to main menu\n";
                     return;
                 }
             }
             catch (exception e)
             {
-                cout << "Invalid Date. \n\n";
+                cout << "\nInvalid Assignment Date. \n\n";
 
                 return;
             }
-            cout << "When is this due?: ";
+            cout << "When is this due? (mm-dd-yyyy): ";
 
             try
             {
@@ -180,13 +187,13 @@ void addAssignment(list<Assignment>& assigned, list<Assignment>& completed)
 
             catch (exception e)
             {
-                cout << "Invalid Date. \n\n";
+                cout << "\nInvalid Due Date. \n\n";
                 return;
             }
 
             if (due < assignDate)
             {
-                cout << "Error: Due Date must be after assigned date. Returninig to main menu.";
+                cout << "\nError: Due Date must be after assigned date. Returning to main menu.\n\n";
                 return;
             }
 
@@ -194,15 +201,25 @@ void addAssignment(list<Assignment>& assigned, list<Assignment>& completed)
             cout << "What is the description?: ";
 
             getline(cin, describe);
+
             if (describe.length() > 15)
             {
                 //ensures less than 15 character description
-                cout << "Error in description. Exiting to main menu";
+                cout << "\nError in description. Returning to main menu\n\n";
                 return;
             }
             Assignment toAdd(due, describe, assignDate, "assigned");
             addAssignment(assigned, toAdd);
+            cout << "Added assignment " << assignDate << endl;
 }
+
+
+//changes due date for a specific assignment
+//ChangedDueDate(list<Assignment>& assigned)
+//{
+
+//}
+
 
 
 //this can add to either list
@@ -264,17 +281,15 @@ void load(list<Assignment>& assign, list<Assignment>& completed)
 
 int main(){
 
-    //we can use a bool to mark whether or not to suggest saving upon exit.
+    //used to mark whether or not to suggest saving upon exit.
     //at the start, nothing has changed, so no saving needed
     bool beenSaved = true;
     
-
-
     //Present the Menu
     int user_input = 0;
 
     //reset the beenSaved to true (necessary if we use 'Add Assignment' to populate lists_
-    beenSaved = true;
+    //beenSaved = true; Have this twice in list
 
     list<Assignment> assigned;
     list<Assignment> completed;
@@ -285,20 +300,65 @@ int main(){
     while (user_input != 8) // 8 means exit, so we exit the loop
     {
         //comments are for the needed input 
-        cout << "Select from the following options: \n"
+        cout << "\nSelect from the following options: \n"
             << "1. Display Assignments \n"  //no needed input
             << "2. Add assignment \n" //get the details (description, dates, status) Status will determine the list
             << "3. Edit a Due Date \n" //get the assigned date and the new due date
             << "4. Edit a description  \n" //get the assigned date and the new descfription
             << "5. Complete an assignment \n" //get the assigned date, then move that one to the completed list
             << "6. Display number of late assignments \n"
-            << "7. Record assignment lists \n"
+            << "7. Save \n"
             << "8. Exit \n\n"
             << "Your input: ";
 
         user_input = get_input(); //gets the users input. Makes sure it's valid
+        //        cin >> user_input;
+
 
         //use a switch to do one of the actions.
+        switch (user_input)
+        {
+        case 1:
+            cout << "\n\n1 - Display assignments, was chosen\n\n";
+            display(assigned, completed);
+            break;
+
+        case 2:
+            cout << "\n\n2 - Add assignments, was chosen\n\n";
+            addAssignMainMenu(assigned, completed);
+            break;
+
+        case 3:
+            cout << "\n\n3 - Edit a Due Date, was chosen\n\n";
+            //ChangedDueDate(assigned);
+            break;
+
+        case 4:
+            cout << "\n\n4 - Edit a description, was chosen\n\n";
+            break;
+
+        case 5:
+            cout << "\n\n5 - Complete an assignment, was chosen\n\n";
+            break;
+
+        case 6:
+            cout << "\n\n6 - Display number of late assignments, was chosen\n\n";
+            break;
+
+        case 7:
+            cout << "\n\n7 - Save, was chosen\n\n";
+            break;
+
+        case 8:
+            cout << "\n\n8 - Exit, was chosen\n\n";
+            exit(0);
+
+        default:
+            cout << "\n\nNumber entered is not 1 to 8.\n\n";
+
+        }
+
+       
     }
 
     system("pause");
