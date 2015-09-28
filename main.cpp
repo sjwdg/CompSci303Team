@@ -10,10 +10,11 @@ using namespace std;
 
 //make an Assignment struct
 struct Assignment {
-    enum Status{ Assigned, Completed, Late };
+    //The name of status is in question, because the enumerator type needs a name, and the instance needs a name...
+    enum status{ Assigned, Completed, Late };
     string description;
     Date assignedDate, dueDate;
-    Status stat;
+    status stat;
     Assignment(Date due, string description, Date assign, string status) :
         dueDate(due), description(description), assignedDate(assign){
         setStat(status);
@@ -25,6 +26,7 @@ struct Assignment {
 };
 
 //the lowercase first letter is guaranteed from user entry, and assumed from the input file
+//this function uses the string parameter in the Assignment cunstructor to set the status 
 void Assignment ::setStat(string a)
 {
     if (a == "assigned") stat = Assigned;
@@ -37,7 +39,10 @@ void Assignment ::setStat(string a)
 {
      //print out the stuff
 
-     cout << work.description << "\n" << "Due: " << work.dueDate << "\n" << "Assigned: " <<work.assignedDate << "\n" << "Status: ";
+     cout << "Due: " << work.dueDate <<endl
+         << work.description << endl
+         << "Assigned: " << work.assignedDate << endl
+         << "Status: ";
 
      switch (work.stat)
      {
@@ -49,7 +54,6 @@ void Assignment ::setStat(string a)
      cout << "\n";
      return out;
 }
-
 
 
 //doesn't ensure the user types an int
@@ -74,41 +78,43 @@ int get_input()
 list<Assignment>::iterator search(list<Assignment>& li, Date d)
 {
     list<Assignment>::iterator itr = li.begin();
-    if (li.size() == 0) return itr;
+    if (li.size() == 0)
+    {
+        itr = li.end();
+        return itr;
+    }
     
     while (itr != li.end())
     {
         if (itr->assignedDate == d) return itr;
-        ++itr;
+        ++itr;      
     }
-
     return itr;
 }
 
 
 //Each of the following can be fleshed out into a function to be called after the menu is selected from
 
+
 //display 
 /*Iterate though each list with a const iterator. Print resuts to consol*/
 
 void display(const list<Assignment>& assign, const list<Assignment>& complete)
 {
-    cout << "\n\nAssigned List \n" << "Date of Assignment                 DescriptionDate DueStatus \n";
+    cout << "Assigned List" << endl << "--------------------" << endl;
 
     for (list<Assignment>::const_iterator itr = assign.begin(); itr != assign.end(); itr++)
     {
         cout << *itr << endl;
     }
 
-    cout << "Completed List \n" << "Date of Assignment                 DescriptionDate DueStatus \n";
+    cout << endl << "Completed List" << endl << "--------------------" << endl;
 
     for (list<Assignment>::const_iterator itr = complete.begin(); itr != complete.end(); itr++)
     {
         cout << *itr << endl;
     }
 }
-
-
 
 //add
 /*Verify the assigment dates and such. If it is all good, continue*/
@@ -129,9 +135,7 @@ void addAssignment(list<Assignment>& chosen, Assignment& a)
                     chosen.insert(itr, a); //put it where the larger one was
                     return;
                 }
-            }
-
-            
+            }         
         }
         chosen.push_back(a); //none were greater. Just put it at the end
         return;
@@ -139,7 +143,7 @@ void addAssignment(list<Assignment>& chosen, Assignment& a)
 }
 
 
-
+//this can only add to the assignment list.
 void addAssignment(list<Assignment>& assigned, list<Assignment>& completed)
 {
         Date due;
@@ -148,14 +152,10 @@ void addAssignment(list<Assignment>& assigned, list<Assignment>& completed)
         string a;
         string describe;
         string status;
-        
-        try{
 
             cout << "When was this assigned?: ";
-
             try
-            {
-                
+            {               
                 getline(cin, a);
                 assignDate = Date(a);
                 if (search(assigned, assignDate) != assigned.end())
@@ -164,20 +164,16 @@ void addAssignment(list<Assignment>& assigned, list<Assignment>& completed)
                     return;
                 }
             }
-
             catch (exception e)
             {
                 cout << "Invalid Date. \n\n";
 
                 return;
             }
-
-
             cout << "When is this due?: ";
 
             try
             {
-
                 getline(cin, d);
                 due = Date(d);
             }
@@ -190,16 +186,12 @@ void addAssignment(list<Assignment>& assigned, list<Assignment>& completed)
 
             if (due < assignDate)
             {
-
-
                 cout << "Error: Due Date must be after assigned date. Returninig to main menu.";
                 return;
             }
 
             cin.clear();
             cout << "What is the description?: ";
-
-
 
             getline(cin, describe);
             if (describe.length() > 15)
@@ -208,46 +200,26 @@ void addAssignment(list<Assignment>& assigned, list<Assignment>& completed)
                 cout << "Error in description. Exiting to main menu";
                 return;
             }
-            cout << "Is this assigned, completed, or late?: ";
-            getline(cin, status);
-            if (status == "") return;//no empty status allowed
-            status[0] = tolower(status[0]); //make comparison easier at any status check
-            if (!(status == "late" || status == "completed" || status == "assigned"))
-            {
-                cout << "Invalid Status \n";
-                return; //stops if invalid status
-                
-            }
-           
-            Assignment d(due, describe, assignDate, status);
-            if (d.stat == 0) addAssignment(assigned, d); //status == assigned
-            else addAssignment(completed, d); //status == completed or late
-
-        }
-
-        catch (exception e)
-        {
-            cout << "Error: Something went wrong. Returning to main menu";
-            return; //and exceptions throughout the addAssignment will cause the entire thing to not happen 
-        }
+            Assignment toAdd(due, describe, assignDate, "assigned");
+            addAssignment(assigned, toAdd);
 }
 
 
+//this can add to either list
+//We assume that the file is correct, which is reasonable if 
+//   we assume this is a program with its own files
 void load(list<Assignment>& assign, list<Assignment>& completed)
 {
     ifstream fin;
     fin.open("AssignmentFile.txt");
     string s;
 
-
-
-
-
     while (getline(fin, s))
     {
         
         try
         {
+        //NOTE: The substrings are to remove extra spaces
         String_Tokenizer st(s, ",");
         Date due(st.next_token());
         string des(st.next_token());
@@ -270,24 +242,6 @@ void load(list<Assignment>& assign, list<Assignment>& completed)
         
     }
 }
-
-//use this to search by assigned date. Can take either list and returns an iterator if it finds the assignment
-//should work on empty lists and in the "not found" case
-//it will return an iterator that compares as 'true' to any list.end() if no match is found
-list<Assignment>::iterator search(list<Assignment>& li, Date d)
-{
-    list<Assignment>::iterator itr = li.begin();
-    if (li.size() == 0) return itr;
-    
-    while (itr != li.end())
-    {
-        if (itr->assignedDate == d) return itr;
-        ++itr;
-    }
-
-    return itr;
-}
-
 
 //edit a date
 /*check the date*/
@@ -315,7 +269,6 @@ int main(){
     bool beenSaved = true;
     
 
-    // populate the lists
 
     //Present the Menu
     int user_input = 0;
@@ -347,7 +300,6 @@ int main(){
 
         //use a switch to do one of the actions.
     }
-    
 
     system("pause");
 };
