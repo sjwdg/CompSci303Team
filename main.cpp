@@ -52,20 +52,38 @@ void Assignment ::setStat(string a)
 
 
 
-//It doesn't currently insure an int. I'd like that to be added later
+//doesn't ensure the user types an int
 int get_input()
 {
     int input = 0;
     cin >> input;
     if (!(input > 0 && input < 9))
     {
-        cout << "\nError. Please try again.\nYour input: ";
-        input = get_input();
+        cout << "\nError. Please try again.Returning to main menu. ";
+        cin.ignore();
+        return -1;
+        
     }
     cin.ignore(); // fixes so we can use cin again
     return input; 
 }
 
+//use this to search by assigned date. Can take either list and returns an iterator if it finds the assignment
+//should work on empty lists and in the "not found" case
+//it will return an iterator that compares as 'true' to any list.end() if no match is found
+list<Assignment>::iterator search(list<Assignment>& li, Date d)
+{
+    list<Assignment>::iterator itr = li.begin();
+    if (li.size() == 0) return itr;
+    
+    while (itr != li.end())
+    {
+        if (itr->assignedDate == d) return itr;
+        ++itr;
+    }
+
+    return itr;
+}
 
 
 //Each of the following can be fleshed out into a function to be called after the menu is selected from
@@ -75,10 +93,14 @@ int get_input()
 
 void display(const list<Assignment>& assign, const list<Assignment>& complete)
 {
+    cout << "\n\nAssigned List \n" << "Date of Assignment                 DescriptionDate DueStatus \n";
+
     for (list<Assignment>::const_iterator itr = assign.begin(); itr != assign.end(); itr++)
     {
         cout << *itr << endl;
     }
+
+    cout << "Completed List \n" << "Date of Assignment                 DescriptionDate DueStatus \n";
 
     for (list<Assignment>::const_iterator itr = complete.begin(); itr != complete.end(); itr++)
     {
@@ -90,7 +112,7 @@ void display(const list<Assignment>& assign, const list<Assignment>& complete)
 
 //add
 /*Verify the assigment dates and such. If it is all good, continue*/
-/*Iterate to the place or use ordered list. Add the Node*/
+/*Iterate to the place. Add the Node*/
 //WHICH LIST WILL BE DETERMINED BY THE STATUS
 
 void addAssignment(list<Assignment>& chosen, Assignment& a)
@@ -116,13 +138,7 @@ void addAssignment(list<Assignment>& chosen, Assignment& a)
     }
 }
 
-//wrapper that decides which list to add to 
-void addAssignment(list<Assignment>& assigned, list<Assignment>& completed, Assignment& a)
-{
-    if (a.stat == 0) addAssignment(assigned, a);
-    else addAssignment(completed, a);
 
-}
 
 void addAssignment(list<Assignment>& assigned, list<Assignment>& completed)
 {
@@ -132,7 +148,6 @@ void addAssignment(list<Assignment>& assigned, list<Assignment>& completed)
         string a;
         string describe;
         string status;
-        string junk;
         
         try{
 
@@ -143,6 +158,11 @@ void addAssignment(list<Assignment>& assigned, list<Assignment>& completed)
                 
                 getline(cin, a);
                 assignDate = Date(a);
+                if (search(assigned, assignDate) != assigned.end())
+                {
+                    cout << "Assignment for date already exists. Returning to main menu\n";
+                    return;
+                }
             }
 
             catch (exception e)
@@ -172,7 +192,7 @@ void addAssignment(list<Assignment>& assigned, list<Assignment>& completed)
             {
 
 
-                cout << "Error: Due Date must be after assigned date.";
+                cout << "Error: Due Date must be after assigned date. Returninig to main menu.";
                 return;
             }
 
@@ -182,6 +202,12 @@ void addAssignment(list<Assignment>& assigned, list<Assignment>& completed)
 
 
             getline(cin, describe);
+            if (describe.length() > 15)
+            {
+                //ensures less than 15 character description
+                cout << "Error in description. Exiting to main menu";
+                return;
+            }
             cout << "Is this assigned, completed, or late?: ";
             getline(cin, status);
             if (status == "") return;//no empty status allowed
@@ -193,12 +219,15 @@ void addAssignment(list<Assignment>& assigned, list<Assignment>& completed)
                 
             }
            
-            addAssignment(assigned, completed, Assignment(due, describe, assignDate, status));
+            Assignment d(due, describe, assignDate, status);
+            if (d.stat == 0) addAssignment(assigned, d); //status == assigned
+            else addAssignment(completed, d); //status == completed or late
 
         }
 
         catch (exception e)
         {
+            cout << "Error: Something went wrong. Returning to main menu";
             return; //and exceptions throughout the addAssignment will cause the entire thing to not happen 
         }
 }
@@ -210,9 +239,15 @@ void load(list<Assignment>& assign, list<Assignment>& completed)
     fin.open("AssignmentFile.txt");
     string s;
 
-    while (fin.good())
+
+
+
+
+    while (getline(fin, s))
     {
-        getline(fin, s);
+        
+        try
+        {
         String_Tokenizer st(s, ",");
         Date due(st.next_token());
         string des(st.next_token());
@@ -223,8 +258,16 @@ void load(list<Assignment>& assign, list<Assignment>& completed)
         status[0] = tolower(status[0]);
 
         if (due < assignDate) return;
-        Assignment d(due, des, assignDate, status);
-        addAssignment(assign, completed, d);
+        
+            Assignment d(due, des, assignDate, status);
+            if (d.stat == 0) addAssignment(assign, d); //status == assigned
+            else addAssignment(completed, d); //status == completed or late
+        }
+        catch (exception e)
+        {
+            cout << "\n Input file error: Dropping one assignment \n";
+        }
+        
     }
 }
 
@@ -304,15 +347,6 @@ int main(){
 
         //use a switch to do one of the actions.
     }
-
-
-    //This is just me testing stuff
-    //The addAssignment from user prompt could use more testing, but it seems to finally be working
-
-    addAssignment(assigned, completed);
-    addAssignment(assigned, completed);
-    addAssignment(assigned, completed);
-    display(assigned, completed);
     
 
     system("pause");
