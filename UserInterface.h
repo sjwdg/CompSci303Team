@@ -1,5 +1,7 @@
 /*
-starting this file with just a copy of what is before main() in main.cpp file.  We can stage the functions over one by one.  As soon as they are working from UserInterface then we can take them out of main.cpp.
+starting this file with just a copy of what is before main() in main.cpp file.  
+We can stage the functions over one by one.  As soon as they are working from 
+UserInterface then we can take them out of main.cpp.
 */
 
 #include <iostream>
@@ -32,7 +34,7 @@ struct Assignment {
 };
 
 //the lowercase first letter is guaranteed from user entry, and assumed from the input file
-//this function uses the string parameter in the Assignment cunstructor to set the status 
+//this function uses the string parameter in the Assignment constructor to set the status 
 void Assignment::setStat(string a)
 {
     if (a == "assigned") stat = Assigned;
