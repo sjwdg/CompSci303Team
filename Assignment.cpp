@@ -4,7 +4,7 @@
 #include<fstream>
 #include <string> //dont know if this is needed. We can remove later if not 
 #include "Date.h" 
-#include "list.h"
+//#include "list.h"
 #include "Assignment.h"
 //date.h includes the tokenizer, so no need to include it again
 
@@ -90,9 +90,14 @@ using namespace std;
     //    /*Verify the assigment dates and such. If it is all good, continue*/
     //    /*Iterate to the place. Add the Node*/
     //    //WHICH LIST WILL BE DETERMINED BY THE STATUS
-    void Assignment::addAssignment(list<Assignment>& chosen, Assignment& a)
+    bool Assignment::addAssignment(list<Assignment>& chosen, Assignment& a)
     {
-        if (chosen.empty()) chosen.push_front(a); //if list is empty, simply push_front
+        if (chosen.empty())
+        {
+            //if list is empty, simply push_front
+            chosen.push_front(a); 
+            return true;
+        }
         else
         {
             if (chosen.find(a) == chosen.end())
@@ -102,27 +107,25 @@ using namespace std;
                     if (itr->assignedDate > a.assignedDate) //find where one is > , if exists
                     {
                         chosen.insert(itr, a); //put it where the larger one was
-                        return;
+                        
+                        //returns true if data was changed.
+                        return true;
                     }
                 }
             }
             chosen.push_back(a); //none were greater. Just put it at the end
-            return;
+
+            //returns true if data was changed.
+            return true;
         }
     }
 
-
-    //changes due date for a specific assignment
-    //ChangedDueDate(list<Assignment>& assigned)
-    //{
-    //
-    //}
 
 
     //this can add to either list
     //We assume that the file is correct, which is reasonable if 
     //   we assume this is a program with its own files
-    void Assignment::load(list<Assignment>& assign, list<Assignment>& completed)
+    bool Assignment::load(list<Assignment>& assign, list<Assignment>& completed)
     {
         ifstream fin;
         fin.open("AssignmentFile.txt");
@@ -142,7 +145,7 @@ using namespace std;
                 status = status.substr(1, status.length());
                 status[0] = tolower(status[0]);
 
-                if (due < assignDate) return;
+                if (due < assignDate) return false;
 
                 Assignment d(due, des, assignDate, status);
                 if (d.stat == 0) addAssignment(assign, d); //status == assigned
@@ -153,26 +156,54 @@ using namespace std;
                 cout << "\n Input file error: Dropping one assignment \n";
             }
         }
+        return true;
     }
 
-    //edit a date
-    /*check the date*/
-    /*find the node. then change the date*/
+   
+    ////changes due date for a specific assignment
+    //void Assignment::ChangedDueDate(list<Assignment>& assigned)
+    //{
 
-    //edit a description
+    //}
+    
+    /*changes due date for a specific assignment
+    returns */
+    static bool editDueDate(list<Assignment>& assigned, Date& assignedDate, Date& dueDate)
+    {
+        //rest of code here
+        return true;
+    }
+
+    //edit a description.   
     /*find the node. edit the description */
+    bool editDesc(list<Assignment>& assigned, Date& assignDate, string description)
+    {
+        //rest of code here
+        return true;
+    }
+
 
     //Complete Assignment
     /*find the assignment in Assigned list. call add on the completed list. Delete from assignment list*/
+    bool  editStatus(list<Assignment>& assigned, list<Assignment>& completed, Date& assignDate, Date& statusAsDate)
+    {
+        //rest of code here
+        return true;
+    }
 
     //Display number of late
     /*Iterate through the completed list, incrementing an int to count the late ones*/
+    int getNumberLate(list<Assignment>& completed)
+    {
+        //rest of code here
+        return true;
+    }
+
 
     //Record assignment lists
     /*Const Iterate through each, using a ofile stream to record each*/
 
-    //Exit
-    /*I guess we could delete the stuff, but that isn't necessary */
+   
 
 
 //};

@@ -20,15 +20,22 @@ private:
     list<Assignment> assigned;
     list<Assignment> completed;
     int user_input = 0;//menu input or present the menu variable
-    bool beenSaved = true;
+    
 
 public:
     UserInterface(list<Assignment>& the_assigned, list<Assignment>& the_completed) : assigned(the_assigned), completed(the_completed){};//constructor
 
+    //bool beenSaved = true;
 
     static int get_input();
     static void displayProcessMenu(list<Assignment>& assigned, list<Assignment>& completed);
     static void addAssignMainMenu(list<Assignment>& assigned, list<Assignment>& completed);
+    static void changeDueDateMainMenu(list<Assignment>& assigned);
+    static void changeDescMainMenu(list<Assignment>& assigned);
+    static void changeStatusMainMenu(list<Assignment>& assigned, list<Assignment>& completed);
+    static int calculateNoLateMainMenu(list<Assignment>& completed);
+    static bool saveMainMenu(list<Assignment>& assigned, list<Assignment>& completed);
+     
 
 };
 
@@ -78,28 +85,33 @@ void UserInterface::displayProcessMenu(list<Assignment>& assigned, list<Assignme
 
         case 2:
             cout << "\n\n2 - Add assignments, was chosen\n\n";
-            addAssignMainMenu(assigned, completed);
+            //addAssignMainMenu(assigned, completed);
             break;
 
         case 3:
             cout << "\n\n3 - Edit a Due Date, was chosen\n\n";
-            Assignment::ChangedDueDate(assigned);
+            //changeDueDateMainMenu(assigned);
             break;
 
         case 4:
             cout << "\n\n4 - Edit a description, was chosen\n\n";
+            //changeDescMainMenu(assigned);
             break;
 
         case 5:
             cout << "\n\n5 - Complete an assignment, was chosen\n\n";
+            //changeStatusMainMenu(assigned, completed);
             break;
 
         case 6:
             cout << "\n\n6 - Display number of late assignments, was chosen\n\n";
+            //calculateNoLateMainMenu(completed);
             break;
 
         case 7:
             cout << "\n\n7 - Save, was chosen\n\n";
+            //saveMainMenu(assigned, completed);
+            //beenSaved = true;
             break;
 
         case 8:
@@ -184,32 +196,115 @@ void UserInterface::addAssignMainMenu(list<Assignment>& assigned, list<Assignmen
     cout << "Added assignment " << assignDate << endl;
 }
 
-
-//changes due date for a specific assignment
-//ChangedDueDate(list<Assignment>& assigned)
+////changes due date for a specific assignment
+//bool changeDueDateMainMenu(list<Assignment>& assigned)//should we be 
 //{
+//    Date dueDate;
+//    Date assignDate;
+//    string d;
+//    string a;
+//    
+//cout << "When was this assigned? (mm-dd-yyyy): ";
+//try
+//{
+//    getline(cin, a);//reads in the assignment date
+//    assignDate = Date(a);//checks and creates a date object
+//
+//    //searches assigned and completed list to see if date already exists.
+//    if (Assignment::search(assigned, assignDate) != assigned.end() || Assignment::search(completed, assignDate) != completed.end())
+//    {
+//        cout << "Assignment for date " << assignDate << " is either invalid or has been completed.";
+//        return;
+//    }
+//}
+//catch (exception e)
+//{
+//    cout << "\nInvalid Assignment Date. \n\n";
+//
+//    return;
+//}
+//cout << "When is this due? (mm-dd-yyyy): ";
+//
+//try
+//{
+//    getline(cin, d);
+//    due = Date(d);
+//}
+//
+//catch (exception e)
+//{
+//    cout << "\nInvalid Due Date. \n\n";
+//    return;
+//}
+//
+//if (due < assignDate)
+//{
+//    cout << "\nError: Due Date must be after assigned date. Returning to main menu.\n\n";
+//    return;
+//}
+//    
+//
+//
+//    return Assignment::editDueDate(assigned, assignDate, dueDate);
+//
+//}
 
+
+//bool  changeDescMainMenu(list<Assignment>& assigned)
+//{
+//    Date assignDate;
+//    string assignDesc;
+//
+//    return Assignment::editDesc(assigned, assignDate, assignDesc);
+//}
+//
+//
+//bool  changeStatusMainMenu(list<Assignment>& assigned, list<Assignment>& completed)
+//{
+//    Date assignDate;
+//    Date statusAsDate;
+//    
+//    return Assignment::editStatus(assigned, completed, assignDate, statusAsDate);
+//}
+//
+//
+//int calculateNoLateMainMenu(list<Assignment>& completed)
+//{
+//   
+//    return Assignment::getNumberLate(completed);
+//}
+//
+//
+//bool  saveMainMenu(list<Assignment>& assigned, list<Assignment>& completed)
+//{
+//    return true;
 //}
 //
 //
 //
 //
-////edit a date
-///*check the date*/
-///*find the node. then change the date*/
 //
-////edit a description
-///*find the node. edit the description */
-//
-////Edit status or Complete Assignment
-///*find the assignment in Assigned list. call add on the completed list. Delete from assignment list*/
-//
-////Display number of late
-///*Iterate through the completed list, incrementing an int to count the late ones*/
-//
-////Record assignment lists
-///*Const Iterate through each, using a ofile stream to record each*/
-//
-////Exit
-///*I guess we could delete the stuff, but that isn't necessary */
+////}
+////
+////
+////
+////
+//////edit a date
+/////*check the date*/
+/////*find the node. then change the date*/
+////
+//////edit a description
+/////*find the node. edit the description */
+////
+//////Edit status or Complete Assignment
+/////*find the assignment in Assigned list. call add on the completed list. Delete from assignment list*/
+////
+//////Display number of late
+/////*Iterate through the completed list, incrementing an int to count the late ones*/
+////
+//////Record assignment lists
+/////*Const Iterate through each, using a ofile stream to record each*/
+////
+//////Exit
+/////*I guess we could delete the stuff, but that isn't necessary */
 

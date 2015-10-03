@@ -40,7 +40,7 @@ struct Assignment
 
    
 
-    //display 
+    //print to console display  
     /*Iterate though each list with a const iterator. Print resuts to consol*/
     static void display(const list<Assignment>& assign, const list<Assignment>& complete);
     
@@ -48,40 +48,40 @@ struct Assignment
     //    /*Verify the assigment dates and such. If it is all good, continue*/
     //    /*Iterate to the place. Add the Node*/
     //    //WHICH LIST WILL BE DETERMINED BY THE STATUS
-    static void addAssignment(list<Assignment>& chosen, Assignment& a);
-
-    
-    //changes due date for a specific assignment
-    //ChangedDueDate(list<Assignment>& assigned)
-    //{
-    //
-    //}
+    //return true of list is changed.
+    static bool addAssignment(list<Assignment>& chosen, Assignment& a);
 
 
-    //this can add to either list
     //We assume that the file is correct, which is reasonable if 
-    //   we assume this is a program with its own files
-    static void load(list<Assignment>& assign, list<Assignment>& completed);
+    //we assume this is a program with its own files
+    static bool load(list<Assignment>& assign, list<Assignment>& completed);
     
 
-    //edit a date
-    /*check the date*/
-    /*find the node. then change the date*/
+    /*changes due date for a specific assignment
+    returns */
+    static bool editDueDate(list<Assignment>& assigned, Date& assignedDate, Date& dueDate);
 
-    //edit a description
+    //edit a description.   
     /*find the node. edit the description */
+    static bool editDesc(list<Assignment>& assigned, Date& assignDate, string description);
+   
 
     //Complete Assignment
     /*find the assignment in Assigned list. call add on the completed list. Delete from assignment list*/
+    static bool  editStatus(list<Assignment>& assigned, list<Assignment>& completed, Date& assignDate, Date& statusAsDate);
 
     //Display number of late
     /*Iterate through the completed list, incrementing an int to count the late ones*/
+    static int getNumberLate(list<Assignment>& completed);
+   
 
-    //Record assignment lists
+   
+    //Record assignment lists 
     /*Const Iterate through each, using a ofile stream to record each*/
+    //???????????????????????
 
-    //Exit
-    /*I guess we could delete the stuff, but that isn't necessary */
+
+    
 
 
 };
