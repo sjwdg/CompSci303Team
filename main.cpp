@@ -13,17 +13,17 @@ int main(){
 
     //used to mark whether or not to suggest saving upon exit.
     //at the start, nothing has changed, so no saving needed
-   
-    
-  
+
+
+
     //creates assigned and completed lists
     list<Assignment> assigned;
     list<Assignment> completed;
 
-    
-   // .load(assigned, completed);//read input file
-  //  UserInterface userinterface(assigned, completed);
-  //  displayProcessMenu(assigned, completed);
+
+    Assignment::load(assigned, completed);//read input file
+    UserInterface userinterface(assigned, completed);
+    UserInterface::displayProcessMenu(assigned, completed);
 
 
 

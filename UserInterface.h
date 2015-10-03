@@ -9,7 +9,7 @@ UserInterface then we can take them out of main.cpp.
 #include<fstream>
 #include <string>
 #include "Date.h" 
-#include "list.h"
+//#include "list.h"
 #include "Assignment.h"
 
 using namespace std;
@@ -23,12 +23,12 @@ private:
     bool beenSaved = true;
 
 public:
-    UserInterface userinterface(list<Assignment>& assigned, list<Assignment>& completed);//constructor
+    UserInterface(list<Assignment>& the_assigned, list<Assignment>& the_completed) : assigned(the_assigned), completed(the_completed){};//constructor
 
 
-    int get_input();
-    void displayProcessMenu(list<Assignment>& assigned, list<Assignment>& completed);
-    void addAssignMainMenu(list<Assignment>& assigned, list<Assignment>& completed);
+    static int get_input();
+    static void displayProcessMenu(list<Assignment>& assigned, list<Assignment>& completed);
+    static void addAssignMainMenu(list<Assignment>& assigned, list<Assignment>& completed);
 
 };
 
@@ -83,7 +83,7 @@ void UserInterface::displayProcessMenu(list<Assignment>& assigned, list<Assignme
 
         case 3:
             cout << "\n\n3 - Edit a Due Date, was chosen\n\n";
-            //ChangedDueDate(assigned);
+            Assignment::ChangedDueDate(assigned);
             break;
 
         case 4:
@@ -183,7 +183,6 @@ void UserInterface::addAssignMainMenu(list<Assignment>& assigned, list<Assignmen
     Assignment::addAssignment(assigned, toAdd);
     cout << "Added assignment " << assignDate << endl;
 }
-
 
 
 //changes due date for a specific assignment
