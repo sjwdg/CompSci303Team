@@ -76,14 +76,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Assignment.cpp" />
+    <ClCompile Include="AssignmentList.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Assignment.h" />
+    <ClInclude Include="AssignmentList.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="list_const_iterator.h" />
     <ClInclude Include="list_iterator.h" />
     <ClInclude Include="StringTokenizer.h" />
+    <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
