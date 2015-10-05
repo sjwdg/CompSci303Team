@@ -242,6 +242,11 @@ void AssignmentList::load()
 {
     ifstream fin;
     fin.open("AssignmentFile.txt");
+    
+    if (fin.fail())
+        cout << "Error. AssignmentFile.txt failed to open"; 
+        //added this error message in because prog is not printing out data
+    
     string s;
 
     while (getline(fin, s))
@@ -259,6 +264,7 @@ void AssignmentList::load()
             
             des = des.substr(1, des.length()); //subst without the blank space
             Date assignDate(assignString);
+            //cout << "reading assignDate " << assignString << endl;
             Date due(dueString);
                   
             status = status.substr(1, status.length()); //substr without the blank space
@@ -330,12 +336,13 @@ bool AssignmentList::completeAssignment(string assigned, string completeDate)
 int AssignmentList::getNumberLate()
 {
     //program goes here
-    return true;
+    return 6;
 }
 
 
 //Record assignment lists
-/*Const Iterate through each, using a ofile stream to record each*/
+/*Const Iterate through each, using a ofile stream to record each
+returns true if records have been saved.  Otherwise returns false.*/
 bool AssignmentList::save()
 {
     //program goes here
