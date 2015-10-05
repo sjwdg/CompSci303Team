@@ -34,6 +34,7 @@ int UserInterface::get_input()
     return input;
 }
 
+
 //displays main menu and calls function to process menu choices
 void UserInterface::displayProcessMenu()
 {
@@ -57,6 +58,7 @@ void UserInterface::displayProcessMenu()
         
     }
 }
+
 
 //process menu choices. calls functions.
 void UserInterface::switchMainMenu(int user_input)

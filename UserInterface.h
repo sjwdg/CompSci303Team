@@ -35,7 +35,7 @@ private:
     //tracks if the data has been changed. is true if record has been changed but not saved
 
 public:
-    UserInterface(AssignmentList& process){ li = process; }
+    UserInterface(AssignmentList& process):li(process){}
     /*
     precondition: data has been loaded from a file. 
     post condition: a UserInterface object has been created.
