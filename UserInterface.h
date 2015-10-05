@@ -32,7 +32,7 @@ public:
     bool addAssignMainMenu();
     bool editDueDateMainMenu();
     bool editDescMainMenu();
-    //bool editStatus();
+    bool editStatusMainMenu();
 
 };
 

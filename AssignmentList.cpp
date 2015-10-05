@@ -1,5 +1,4 @@
 
-
 #include "AssignmentList.h"
 
 #include <iostream>
@@ -24,7 +23,6 @@ AssignmentList::AssignmentList(AssignmentList& other)
     beenSaved = other.beenSaved;
 
 }
-
 
 
 AssignmentList::~AssignmentList()
@@ -59,35 +57,60 @@ list<Assignment>::iterator AssignmentList::search(list<Assignment>& li, Date d)
 //pre: string is passed representing an assignment date
 //post: String is converted to a date, and that assignment date is searched
 //returns: true if assignment is in a list, false otherwise
-bool AssignmentList::alreadyExists(string assign)
+bool AssignmentList::alreadyExists(string assignDate)
 {
-    Date d;
-    try
-    {
-        d = Date(assign);
-    }
-    catch (exception e)
-    {
-        return false;
-    }
 
-    list<Assignment>::iterator itr = search(assigned, d);
-    if (itr != assigned.end()) return false;
-    itr = search(completed, d);
-    if (itr != assigned.end()) return false;
-    else return true;
+    ////David - something wrong with this logic.
 
+    //Date d;
+    //try
+    //{
+    //    d = Date(assignDate);
+    //}
+    //catch (exception e)
+    //{
+    //    return false;
+    //}
+
+    //list<Assignment>::iterator itr = search(assigned, d);
+    //if (itr != assigned.end()) return true;//returns false if 
+    //itr = search(completed, d);
+    //if (itr != assigned.end()) return true;
+    //return false;
+    return true;//remove after testing
 }
+
+
+//returns: true if assignment is in a completed list, false otherwise
+bool AssignmentList::isCompleted(string assignDate)
+{
+    /* Date d;
+     try
+     {
+     d = Date(assignDate);
+     }
+     catch (exception e)
+     {
+     return false;
+     }
+
+     list<Assignment>::iterator itr = search(completed, d);
+     if (itr == completed.end()) return false;
+     else return true;
+     return false;*/
+    return false;//remove after testing
+}
+
 
 //pre: string is passed representing an assignment date
 //post: string is made into a date and the assigned list is searched for that assignment date
 //returns: true if the assigned date exists in the assigned list, false otherwise
-bool AssignmentList::isAssigned(string assign)
+bool AssignmentList::isAssigned(string assignDate)
 {
     Date d;
     try
     {
-        d = Date(assign);
+        d = Date(assignDate);
     }
     catch (exception e)
     {
@@ -99,20 +122,21 @@ bool AssignmentList::isAssigned(string assign)
     else return true;
 }
 
+
 //pre: a date is passed
 //post: date is converted to string, then tokenized and reassembled with dashes
 //returns: string representing date with dashes
-string AssignmentList::dateToString(Date& d) 
+string AssignmentList::dateToString(Date& d)
 {
     string temp = "";
-    
+
 
     string s = d.toString();
     String_Tokenizer st(s, "/");
     string month = st.next_token();
     string day = st.next_token();
     string year = st.next_token();
-    string result =  month + "-" +day + "-" + year;
+    string result = month + "-" + day + "-" + year;
     return result;
 }
 
@@ -122,13 +146,13 @@ string AssignmentList::dateToString(Date& d)
 //pre: none
 //post: For each assignment, a block of text is made 
 //returns: a string for the user interface to display
-string AssignmentList::displayAssignments() 
+string AssignmentList::displayAssignments()
 {
     stringstream display;
     display << "Assigned List" << "\n" << "--------------------" << "\n";
 
     //iterate through all the assigned list assignments
-    for (list<Assignment>::iterator itr = assigned.begin() ; itr != assigned.end(); itr++)
+    for (list<Assignment>::iterator itr = assigned.begin(); itr != assigned.end(); itr++)
     {
         display << *itr << "\n";
     }
@@ -141,7 +165,7 @@ string AssignmentList::displayAssignments()
         display << *itr << "\n";
     }
     string t = display.str();
-    return t ;
+    return t;
 }
 
 
@@ -169,6 +193,7 @@ void  AssignmentList::addAssignment(Assignment& a)
     }
 }
 
+
 //pre: assignment is made with correct values and passed
 //post: assignment is added to 'completed' list
 //returns: none
@@ -193,6 +218,7 @@ void AssignmentList::addToCompleted(Assignment& a)
     }
 }
 
+
 //this can only add to the assignment list.
 //pre: correct vales are passed in string form
 //post: an assignment is made and passed to the function to add to the lists
@@ -213,9 +239,9 @@ bool AssignmentList::addAssignment(string assigned, string describe, string due)
     {
         return false; //errpr occured, so return false 
     }
-    
+
     return true; //because no errors occured
-        
+
 }
 
 
@@ -261,6 +287,7 @@ void AssignmentList::load()
     }
 }
 
+
 //pre: two strings as dates are passed
 //post: exception if dates are invalid, otherwise a bool shows the comparison
 //returns: true if lhs > rhs, false otherwise
@@ -280,21 +307,61 @@ bool AssignmentList::compareDates(string lhs, string rhs)
     else return false;
 }
 
+
 //edit a date
 /*check the date*/
-/*find the node. then change the date*/
+/*find the node in the assigned list. then change the due date
+returns true if due date was edited. False otherwise*/
+bool AssignmentList::editDueDate(string assigned, string due)
+{
+    cout << "at editDueDate\n";
+    return true;
+}
+
 
 //edit a description
-/*find the node. edit the description */
+/*find the node in the assigned list. edit the description
+returns: true if description is edited. False otherwise*/
+bool AssignmentList::editDescription(string assigned, string describe)
+{
+    cout << "at editDescription\n";
+    return true;
+}
+
 
 //Complete Assignment
-/*find the assignment in Assigned list. call add on the completed list. Delete from assignment list*/
+/*
+cfind the assignment in Assigned list. Compare the assigned and due dates to see if the assignment is late or completed on time. Call add on the completed list. Delete from assignment list and insert in order by assignment date in the completed list.
+Return: true if status is completed or late, status was edited, and node was moved.  Return false otherwise.*/
+bool AssignmentList::completeAssignment(string assigned, string status)
+{
+    return true;
+}
+
+
+//Saves data to file
+/* Saves data to file. returns true if data was saved.  False otherwise.*/
+bool AssignmentList::save()
+{
+    return true;
+}
+
 
 //Display number of late
 /*Iterate through the completed list, incrementing an int to count the late ones*/
+int countLateAssignments()
+{
+    int temp = 0;
+    return temp;
+   
+}
+
 
 //Record assignment lists
 /*Const Iterate through each, using a ofile stream to record each*/
+int save()
+{
+    return true;
+}
 
-//Exit
-/*I guess we could delete the stuff, but that isn't necessary */
+

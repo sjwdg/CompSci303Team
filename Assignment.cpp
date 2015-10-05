@@ -2,11 +2,10 @@
 #include <iostream>
 #include<sstream>
 #include<fstream>
-#include <string> //dont know if this is needed. We can remove later if not 
+#include <string>
 #include "Date.h" 
-#include "list.h"
+//#include "list.h" - NOTE: no includegard on list.h file so deleting this.  Is included on Assignment.h file.
 #include "Assignment.h"
-//date.h includes the tokenizer, so no need to include it again
 
 using namespace std;
 
