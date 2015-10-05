@@ -2,6 +2,7 @@
 #include <iostream>
 #include<sstream>
 #include<fstream>
+
 #include <string>
 #include "Date.h" 
 //#include "list.h" - NOTE: no includegard on list.h file so deleting this.  Is included on Assignment.h file.
@@ -10,7 +11,6 @@
 using namespace std;
 
   
-
     //the lowercase first letter is guaranteed from user entry, and assumed from the input file
     //this function uses the string parameter in the Assignment constructor to set the status 
     void Assignment::setStat(string a)

@@ -57,6 +57,7 @@ list<Assignment>::iterator AssignmentList::search(list<Assignment>& li, Date d)
 //pre: string is passed representing an assignment date
 //post: String is converted to a date, and that assignment date is searched
 //returns: true if assignment is in a list, false otherwise
+
 bool AssignmentList::alreadyExists(string assignDate)
 {
 
@@ -110,7 +111,9 @@ bool AssignmentList::isAssigned(string assignDate)
     Date d;
     try
     {
+
         d = Date(assignDate);
+
     }
     catch (exception e)
     {
@@ -129,13 +132,12 @@ bool AssignmentList::isAssigned(string assignDate)
 string AssignmentList::dateToString(Date& d)
 {
     string temp = "";
-
-
     string s = d.toString();
     String_Tokenizer st(s, "/");
     string month = st.next_token();
     string day = st.next_token();
     string year = st.next_token();
+
     string result = month + "-" + day + "-" + year;
     return result;
 }
@@ -146,12 +148,14 @@ string AssignmentList::dateToString(Date& d)
 //pre: none
 //post: For each assignment, a block of text is made 
 //returns: a string for the user interface to display
+
 string AssignmentList::displayAssignments()
 {
     stringstream display;
     display << "Assigned List" << "\n" << "--------------------" << "\n";
 
     //iterate through all the assigned list assignments
+
     for (list<Assignment>::iterator itr = assigned.begin(); itr != assigned.end(); itr++)
     {
         display << *itr << "\n";
@@ -165,6 +169,7 @@ string AssignmentList::displayAssignments()
         display << *itr << "\n";
     }
     string t = display.str();
+
     return t;
 }
 
@@ -240,6 +245,7 @@ bool AssignmentList::addAssignment(string assigned, string describe, string due)
         return false; //errpr occured, so return false 
     }
 
+
     return true; //because no errors occured
 
 }
@@ -308,6 +314,7 @@ bool AssignmentList::compareDates(string lhs, string rhs)
 }
 
 
+
 //edit a date
 /*check the date*/
 /*find the node in the assigned list. then change the due date
@@ -363,5 +370,6 @@ int save()
 {
     return true;
 }
+
 
 
