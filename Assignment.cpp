@@ -2,15 +2,16 @@
 #include <iostream>
 #include<sstream>
 #include<fstream>
-
-#include <string>
+#include <string> //dont know if this is needed. We can remove later if not 
 #include "Date.h" 
-//#include "list.h" - NOTE: no includegard on list.h file so deleting this.  Is included on Assignment.h file.
+#include "list.h"
 #include "Assignment.h"
+//date.h includes the tokenizer, so no need to include it again
 
 using namespace std;
 
   
+
     //the lowercase first letter is guaranteed from user entry, and assumed from the input file
     //this function uses the string parameter in the Assignment constructor to set the status 
     void Assignment::setStat(string a)
