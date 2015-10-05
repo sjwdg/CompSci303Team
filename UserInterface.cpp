@@ -18,7 +18,7 @@ The program then processes the choice and asks the user additional questions.
 using namespace std;
 
 
-//Get input from console.  does not check if input is an int
+//Get input from console.  Does not check if input is an int
 int UserInterface::get_input()
 {
     int input = 0;
@@ -34,7 +34,7 @@ int UserInterface::get_input()
     return input;
 }
 
-//displays main menu and processes menu choices
+//displays main menu and calls function to process menu choices
 void UserInterface::displayProcessMenu()
 {
     int user_input = 0;
@@ -53,55 +53,63 @@ void UserInterface::displayProcessMenu()
             << "Your input: ";
 
         user_input = get_input(); //gets the users input. Makes sure it's valid
-
-        //use a switch to do one of the following actions.
-        switch (user_input)
-        {
-        case 1:
-            cout << li.displayAssignments();//display assigned and completed lists
-            break;
-
-        case 2:
-            cout << "\n\n2 - Add assignments was chosen\n\n";
-            if (addAssignMainMenu()){ isChanged = true; }//add assignments to the assigned list
-            break;
-
-        case 3:
-            cout << "\n\n3 - Edit a Due Date was chosen\n\n";
-            if (editDueDateMainMenu()){ isChanged = true; }
-            break;
-
-        case 4:
-            cout << "\n\n4 - Edit a description was chosen\n\n";
-            if (editDescMainMenu()){ isChanged = true; }
-            break;
-
-        case 5:
-            cout << "\n\n5 - Complete an assignment was chosen\n\n";
-            if (editStatusMainMenu()){ isChanged = true; }
-            break;
-
-        case 6:
-            cout << "\n\n6 - Display number of late assignments was chosen\n\n";
-            cout<< "Number of late assignments is " << li.getNumberLate() << ".\n\n";
-            break;
-
-        case 7:
-            cout << "\n\n7 - Save was chosen\n\n";
-            isChanged = !li.save();
-            if (isChanged == false)cout << "Changes have been saved.\n";
-            break;
-
-        case 8:
-            cout << "\n\n8 - Exit was chosen. Now Exiting Program\n\n";
-            system("pause");
-            exit(0);
-
-        default:
-            cout << "\n\nNumber entered is not 1 to 8.\n\n";
-        }
+        switchMainMenu(user_input);//call switch statement for main menu choices
+        
     }
 }
+
+//process menu choices. calls functions.
+void UserInterface::switchMainMenu(int user_input)
+{
+    //use a switch to do one of the following actions.
+    switch (user_input)
+    {
+    case 1:
+        cout << li.displayAssignments();//display assigned and completed lists
+        break;
+
+    case 2:
+        cout << "\n\n2 - Add assignments was chosen\n\n";
+        if (addAssignMainMenu()){ isChanged = true; }//add assignments to the assigned list
+        break;
+
+    case 3:
+        cout << "\n\n3 - Edit a Due Date was chosen\n\n";
+        if (editDueDateMainMenu()){ isChanged = true; }
+        break;
+
+    case 4:
+        cout << "\n\n4 - Edit a description was chosen\n\n";
+        if (editDescMainMenu()){ isChanged = true; }
+        break;
+
+    case 5:
+        cout << "\n\n5 - Complete an assignment was chosen\n\n";
+        if (editStatusMainMenu()){ isChanged = true; }
+        break;
+
+    case 6:
+        cout << "\n\n6 - Display number of late assignments was chosen\n\n";
+        cout << "Number of late assignments is " << li.getNumberLate() << ".\n\n";
+        break;
+
+    case 7:
+        cout << "\n\n7 - Save was chosen\n\n";
+        isChanged = !li.save();
+        if (isChanged == false)cout << "Changes have been saved.\n";
+        break;
+
+    case 8:
+        cout << "\n\n8 - Exit was chosen. Now Exiting Program\n\n";
+        system("pause");
+        exit(0);
+
+    default:
+        cout << "\n\nNumber entered is not 1 to 8.\n\n";
+    }
+
+}
+
 
 
 //this can only add to the assignment list from the main menu Add.
