@@ -1,4 +1,13 @@
+/*************************************************************************************************
+Name: Susan Warren and David Jones
+Course: CompSci 303
+Program: Assignments Program 1
+Date: Oct 5, 2015
+Description:
+Program initiates the main menu from which the user chooses what operation they would like to do.
+The program then processes the choice and asks the user additional questions.
 
+**************************************************************************************************/
 #include <iostream>
 #include<sstream>
 #include<fstream>
@@ -25,7 +34,7 @@ int UserInterface::get_input()
     return input;
 }
 
-
+//displays main menu and processes menu choices
 void UserInterface::displayProcessMenu()
 {
     int user_input = 0;
@@ -33,11 +42,11 @@ void UserInterface::displayProcessMenu()
     {
         //comments are for the needed input 
         cout << "\nSelect from the following options: \n"
-            << "1. Display Assignments \n"  //no needed input
-            << "2. Add assignment \n" //get the details (description, dates, status) Status will determine the list
-            << "3. Edit a Due Date \n" //get the assigned date and the new due date
-            << "4. Edit a description  \n" //get the assigned date and the new descfription
-            << "5. Complete an assignment \n" //get the assigned date, then move that one to the completed list
+            << "1. Display Assignments \n"  
+            << "2. Add assignment \n" 
+            << "3. Edit a Due Date \n" 
+            << "4. Edit a description  \n" 
+            << "5. Complete an assignment \n" 
             << "6. Display number of late assignments \n"
             << "7. Save \n"
             << "8. Exit \n\n"
@@ -49,12 +58,12 @@ void UserInterface::displayProcessMenu()
         switch (user_input)
         {
         case 1:
-            cout << li.displayAssignments();
+            cout << li.displayAssignments();//display assigned and completed lists
             break;
 
         case 2:
             cout << "\n\n2 - Add assignments was chosen\n\n";
-            if (addAssignMainMenu()){ isChanged = true; }
+            if (addAssignMainMenu()){ isChanged = true; }//add assignments to the assigned list
             break;
 
         case 3:
@@ -74,16 +83,18 @@ void UserInterface::displayProcessMenu()
 
         case 6:
             cout << "\n\n6 - Display number of late assignments was chosen\n\n";
-            //countNumOfLateAssign();
+            cout<< "Number of late assignments is " << li.getNumberLate() << ".\n\n";
             break;
 
         case 7:
             cout << "\n\n7 - Save was chosen\n\n";
-            //save();
+            isChanged = !li.save();
+            if (isChanged == false)cout << "Changes have been saved.\n";
             break;
 
         case 8:
-            cout << "\n\n8 - Exit was chosen\n\n";
+            cout << "\n\n8 - Exit was chosen. Now Exiting Program\n\n";
+            system("pause");
             exit(0);
 
         default:
@@ -149,7 +160,6 @@ bool UserInterface::addAssignMainMenu()
 
     return addCheck;
 }
-
 
 
 //changes due date for a specific assignment
@@ -257,6 +267,7 @@ bool UserInterface::editDescMainMenu()
     return false;
 }
 
+
 //Edit status or Complete Assignment
 /*find the assignment in Assigned list. call add on the completed list. Delete from assignment list*/
 bool UserInterface::editStatusMainMenu()
@@ -301,8 +312,8 @@ bool UserInterface::editStatusMainMenu()
             //Verify if completedDate is valid and if so edit assignment's status and move to completion list.
             addCheck = li.completeAssignment(assignDate, completeDate);
 
-            if (addCheck) cout << "Changed status to " << status << " for assignment " << assignDate << " and moved it to completed list." << endl;
-            else cout << "Failed to change status for assignment";
+            if (addCheck) cout << "Changed status to " << status << " for assignment " << assignDate << " and moved it to completed list.\n" << endl;
+            else cout << "Failed to change status for assignment.\n";
             return addCheck;
         }
     }
@@ -315,20 +326,3 @@ bool UserInterface::editStatusMainMenu()
     return false;
 }
 
-
-////Display number of late
-///*Iterate through the completed list, incrementing an int to count the late ones*/
-int UserInterface::countNumOfLateAssign()
-{
-    int temp = 0;
-    return temp;
-}
-
-
-
-////Record assignment lists
-///*Const Iterate through each, using a ofile stream to record each*/
-void UserInterface::save()
-{
-
-}

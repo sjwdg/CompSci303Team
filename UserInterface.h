@@ -21,7 +21,7 @@ private:
     
     int user_input = 0;//menu input or present the menu variable
     AssignmentList li;
-    bool isChanged = false;
+    bool isChanged = false;//true indicates if record has been changed but not saved
 
 public:
     UserInterface(AssignmentList& process){ li = process; }//constructor
@@ -33,8 +33,7 @@ public:
     bool editDueDateMainMenu();
     bool editDescMainMenu();
     bool editStatusMainMenu();
-    int countNumOfLateAssign();
-    void save();
+   
 };
 
 #endif
