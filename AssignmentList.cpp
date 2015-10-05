@@ -317,7 +317,7 @@ bool AssignmentList::editDescription(string assigned, string describe)
 
 //Complete Assignment
 /*find the assignment in Assigned list. call add on the completed list. Delete from assignment list*/
-bool completeAssignment(string assigned)
+bool AssignmentList::completeAssignment(string assigned, string completeDate)
 {
     //program goes here
     return true;
@@ -326,7 +326,7 @@ bool completeAssignment(string assigned)
 
 //Display number of late
 /*Iterate through the completed list, incrementing an int to count the late ones*/
-int getNumberLate()
+int AssignmentList::getNumberLate()
 {
     //program goes here
     return true;
@@ -335,7 +335,7 @@ int getNumberLate()
 
 //Record assignment lists
 /*Const Iterate through each, using a ofile stream to record each*/
-bool save()
+bool AssignmentList::save()
 {
     //program goes here
     return true;
