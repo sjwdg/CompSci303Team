@@ -23,7 +23,12 @@ struct Assignment
         setStat(status);
     };
 
+    void setDueDate(string dDate);//change the due date using a string
+    void setDesc(string desc);//change the description using a string.
     void setStat(string s); // change the status using the string
+    
+
+    string getDueDate()  { return dateToString(dueDate); }
 
     friend ostream& operator <<(ostream& out, Assignment& work); //overload to print what we need
 

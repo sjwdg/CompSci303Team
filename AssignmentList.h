@@ -31,9 +31,9 @@ public:
     string displayAssignments() ;
     
     bool addAssignment(string assigned, string descibe, string due);
-    bool editDueDate(string assigned, string due);
-    bool editDescription(string assigned, string describe);
-    bool completeAssignment(string assigned, string completeDate);
+    bool editDueDate(string assignedDate, string dueDate);
+    bool editDescription(string assignedDate, string describe);
+    bool completeAssignment(string assignedDate, string completeDate);
     int getNumberLate();
     bool save();
 };

@@ -306,16 +306,16 @@ bool AssignmentList::compareDates(string lhs, string rhs)
 //edit a date
 /*check the date*/
 /*find the node. then change the date*/
-bool AssignmentList::editDueDate(string assigned, string due)
+bool AssignmentList::editDueDate(string assignedDate, string dueDate)
 {
-    //program goes here
+    list<Assignment>::iterator itr = search(assigned, assignedDate);
     return true;
 }
 
 
 //edit a description
 /*find the node. edit the description */
-bool AssignmentList::editDescription(string assigned, string describe)
+bool AssignmentList::editDescription(string assignedDate, string describe)
 {
     //program goes here
     return true;
@@ -324,7 +324,7 @@ bool AssignmentList::editDescription(string assigned, string describe)
 //Complete Assignment
 /*Verify completion date is valid. Find the assignment in Assigned list. Modifiy status to completed or late. move assignment to completed list. Delete from assignment list
 Returns true if status was changed and assignment moved to completed list.*/
-bool AssignmentList::completeAssignment(string assigned, string completeDate)
+bool AssignmentList::completeAssignment(string assignedDate, string completeDate)
 {
     //program goes here
     return false;

@@ -130,7 +130,7 @@ bool UserInterface::addAssignMainMenu()
     getline(cin, newAssignDate);//reads in the assignment date
 
     //check if duplicate assignment date in list
-    if (li.alreadyExists(newAssignDate) != true)
+    if (li.alreadyExists(newAssignDate) == true)
     {
         cout << "Assigned Date Error. Date entered has been used previously. \n";
         return false;
@@ -184,7 +184,7 @@ bool UserInterface::editDueDateMainMenu()
 
     getline(cin, assignDate);//reads in the assignment date
 
-    //check if duplicate assignment date in list
+    //check if assignment date is in list
     if (li.alreadyExists(assignDate) == true)
     {
         if (li.isCompleted(assignDate) == true)
@@ -239,7 +239,7 @@ bool UserInterface::editDescMainMenu()
 
     getline(cin, assignDate);//reads in the assignment date
 
-    //check if duplicate assignment date in list
+    //check if assignment date is in list
     if (li.alreadyExists(assignDate) == true)
     {
         if (li.isCompleted(assignDate) == true)
@@ -293,7 +293,7 @@ bool UserInterface::editStatusMainMenu()
 
     getline(cin, assignDate);//reads in the assignment date
 
-    //check if duplicate assignment date in list
+    //check if assignment date is in list
     if (li.alreadyExists(assignDate) == true)
     {
         if (li.isCompleted(assignDate) == true)
