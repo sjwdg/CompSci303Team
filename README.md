@@ -7,17 +7,17 @@ main.cpp
   
   
 Date.h & .cpp
-- verify that the files have not been modified from the instructors original.
+- verify that the files have not been modified from the instructors original. 
 
 
 AssignmentList.cpp
  - logic and cut & paste issues(bottom of function)  
-    in alreadyExists(string assignDate) function.
+    in alreadyExists(string assignDate) function. -David. This should be finished
  - add Saved code
  - add comments & header
  - verify load() is throwing away bad dates.  Looks like 
   it throws and error but still saves the date in the lists. 
-  Does not appear to verify due date vs assign date is valid.
+  Does not appear to verify due date vs assign date is valid. -David. This should be finished
  - add code for editDueDate()
  - add code for editDescription()
  - add code for completeAssignment()
