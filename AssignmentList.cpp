@@ -12,19 +12,9 @@ using namespace std;
 
 AssignmentList::AssignmentList()
 {
-    load();
+    
     beenSaved = true;
 }
-
-
-AssignmentList::AssignmentList(AssignmentList& other)
-{
-    assigned = other.assigned;
-    completed = other.completed;
-    beenSaved = other.beenSaved;
-
-}
-
 
 
 AssignmentList::~AssignmentList()
@@ -72,9 +62,9 @@ bool AssignmentList::alreadyExists(string assign)
     }
 
     list<Assignment>::iterator itr = search(assigned, d);
-    if (itr != assigned.end()) return false;
+    if (itr != assigned.end()) return true;
     itr = search(completed, d);
-    if (itr != assigned.end()) return false;
+    if (itr != completed.end()) return true;
     else return true;
 
 }
@@ -239,11 +229,16 @@ void AssignmentList::load()
         {
             //NOTE: The substrings are to remove extra spaces
             String_Tokenizer st(s, ",");
-            Date due(st.next_token());
+            string dueString = st.next_token();
             string des(st.next_token());
-            des = des.substr(1, des.length()); //subst without the blank space
-            Date assignDate(st.next_token());
+            string assignString = st.next_token();
             string status(st.next_token());
+            
+            
+            des = des.substr(1, des.length()); //subst without the blank space
+            Date assignDate(assignString);
+            Date due(dueString);
+                  
             status = status.substr(1, status.length()); //substr without the blank space
             status[0] = tolower(status[0]); //ensures our checks work regardless of lower or upper case first letter
 

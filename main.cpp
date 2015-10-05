@@ -13,7 +13,9 @@ using namespace std;
 int main(){
 
     AssignmentList proc;
+    proc.load();
     UserInterface ui(proc);
+    
     ui.displayProcessMenu();
 
     system("pause");

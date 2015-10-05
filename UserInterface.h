@@ -20,11 +20,11 @@ class UserInterface
 {
 private:
     
-    int user_input = 0;//menu input or present the menu variable
+    int user_input;//menu input or present the menu variable
     AssignmentList li;
 
 public:
-    UserInterface(AssignmentList& process){ li = process; }//constructor
+    UserInterface(AssignmentList process) : li(process) {}//constructor
     UserInterface(){ ; }
 
     int get_input();

@@ -11,16 +11,16 @@ private:
     list<Assignment>::iterator search(list<Assignment>& li, Date assignedDate);
     list<Assignment> assigned;
     list<Assignment> completed;
-    void load();
+    
     void addAssignment(Assignment& a);
     bool beenSaved;
 
 public:
 
     AssignmentList();
-    AssignmentList(AssignmentList& other);
     ~AssignmentList();
 
+    void load();
     bool compareDates(string lhs, string rhs);
     bool alreadyExists(string assignedDate);
     bool isCompleted(string assignedDate);
