@@ -66,9 +66,30 @@ bool AssignmentList::alreadyExists(string assign)
     itr = search(completed, d);
     if (itr != completed.end()) return true;
     else return false;
-=======
 
 }
+
+
+//returns: true if assignment is in a completed list, false otherwise
+bool AssignmentList::isCompleted(string assignDate)
+{
+    /* Date d;
+    try
+    {
+    d = Date(assignDate);
+    }
+    catch (exception e)
+    {
+    return false;
+    }
+
+    list<Assignment>::iterator itr = search(completed, d);
+    if (itr == completed.end()) return false;
+    else return true;
+    return false;*/
+    return false;//remove after testing
+}
+
 
 //pre: string is passed representing an assignment date
 //post: string is made into a date and the assigned list is searched for that assignment date
@@ -279,18 +300,49 @@ bool AssignmentList::compareDates(string lhs, string rhs)
 //edit a date
 /*check the date*/
 /*find the node. then change the date*/
+bool AssignmentList::editDueDate(string assigned, string due)
+{
+    //program goes here
+    return true;
+}
+
 
 //edit a description
 /*find the node. edit the description */
+bool AssignmentList::editDescription(string assigned, string describe)
+{
+    //program goes here
+    return true;
+}
 
 //Complete Assignment
 /*find the assignment in Assigned list. call add on the completed list. Delete from assignment list*/
+bool completeAssignment(string assigned)
+{
+    //program goes here
+    return true;
+}
+
 
 //Display number of late
 /*Iterate through the completed list, incrementing an int to count the late ones*/
+int getNumberLate()
+{
+    //program goes here
+    return true;
+}
+
 
 //Record assignment lists
 /*Const Iterate through each, using a ofile stream to record each*/
+bool save()
+{
+    //program goes here
+    return true;
+}
 
-//Exit
-/*I guess we could delete the stuff, but that isn't necessary */
+
+
+
+
+

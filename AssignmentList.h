@@ -31,10 +31,10 @@ public:
     string displayAssignments() ;
     
     bool addAssignment(string assigned, string descibe, string due);
-   /* bool completeAssignment(string assigned); 
+    bool completeAssignment(string assigned); 
     bool editDueDate(string assigned, string due);
     bool editDescription(string assigned, string describe);
-    int getNumberLate();*/
+    int getNumberLate();
 };
 
 #endif
