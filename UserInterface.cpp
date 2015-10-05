@@ -69,7 +69,7 @@ void UserInterface::displayProcessMenu()
 
         case 5:
             cout << "\n\n5 - Complete an assignment was chosen\n\n";
-            //if (editStatusMainMenu()){ isChanged = true; }
+            if (editStatusMainMenu()){ isChanged = true; }
             break;
 
         case 6:
@@ -259,74 +259,61 @@ bool UserInterface::editDescMainMenu()
 
 //Edit status or Complete Assignment
 /*find the assignment in Assigned list. call add on the completed list. Delete from assignment list*/
-//bool UserInterface::editStatusMainMenu()
-//{
-//    string assignDate;
-//    string completeDate;//date assignment was completed
-//    string dueDate;
-//    string status;
-//    bool isLate = false;
-//    bool addCheck = false;
-//
-//    cout << "When is the date of the assignment to be edited? (mm-dd-yyyy): ";
-//
-//    getline(cin, assignDate);//reads in the assignment date
-//
-//    //check if duplicate assignment date in list
-//    if (li.alreadyExists(assignDate) == true)
-//    {
-//        if (li.isCompleted(assignDate) == true)
-//        {
-//            cout << "\nError. Assignment has been completed and information can not be changed. \n";
-//            return false;
-//        }
-//        else //valid assignment, start change status process.
-//        {
-//            //ask user description
-//            cout << "What is the date of completion for the assignment? (mm-dd-yyyy): ";
-//            //start up coding here again.
-//            try
-//            {
-//                getline(cin, completeDate);
-//                li.compareDates(assignDate, completeDate); 
-//               
-//            }
-//
-//            catch (exception e)
-//            {
-//                cout << "\nError. Completion date is less than assignment date. \n"; //can be changed
-//                return false;
-//            }
-//
-//            
-//            if (li.compareDates(completeDate, getDueDate())//returns true if late
-//            {
-//                status = "late";
-//                cout << "Assignment is late.\n";
-//            }
-//            else
-//            {
-//                status = "completed";
-//                cout << "Assignment was completed on time.\n";
-//            }
-//            
-//            //save status statement.
-//            addCheck = li.completeAssignment(assignDate, status);
-//
-//            if (addCheck) cout << "Changed status to " << status << " for assignment " << assignDate << " and moved it to completed list." << endl;
-//            else cout << "Failed to change status for assignment";
-//            return addCheck;
-//        }
-//    }
-//    else
-//    {
-//        cout << "\nAssignment date " << assignDate << "is not in list\n";
-//        return false;//because not in list
-//    }
-//
-//    return false;
-//
-//}
+bool UserInterface::editStatusMainMenu()
+{
+    string assignDate;
+    string completeDate;//date assignment was completed
+    string dueDate;
+    string status;
+    bool isLate = false;
+    bool addCheck = false;
+
+    cout << "When is the date of the assignment to be edited? (mm-dd-yyyy): ";
+
+    getline(cin, assignDate);//reads in the assignment date
+
+    //check if duplicate assignment date in list
+    if (li.alreadyExists(assignDate) == true)
+    {
+        if (li.isCompleted(assignDate) == true)
+        {
+            cout << "\nError. Assignment has been completed and information can not be changed. \n";
+            return false;
+        }
+        else //valid assignment, start change status process.
+        {
+            //ask user description
+            cout << "What is the date of completion for the assignment? (mm-dd-yyyy): ";
+            //start up coding here again.
+            try
+            {
+                getline(cin, completeDate);
+                li.compareDates(assignDate, completeDate); 
+            }
+
+            catch (exception e)
+            {
+                cout << "\nError. Completion date is less than assignment date. \n"; 
+                return false;
+            }
+
+            
+            //Verify if completedDate is valid and if so edit assignment's status and move to completion list.
+            addCheck = li.completeAssignment(assignDate, completeDate);
+
+            if (addCheck) cout << "Changed status to " << status << " for assignment " << assignDate << " and moved it to completed list." << endl;
+            else cout << "Failed to change status for assignment";
+            return addCheck;
+        }
+    }
+    else
+    {
+        cout << "\nAssignment date " << assignDate << " is not in list\n";
+        return false;//because not in list
+    }
+
+    return false;
+}
 
 
 ////Display number of late

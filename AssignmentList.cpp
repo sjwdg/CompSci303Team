@@ -66,6 +66,7 @@ bool AssignmentList::alreadyExists(string assign)
     itr = search(completed, d);
     if (itr != completed.end()) return true;
     else return false;
+   
 
 }
 
@@ -73,7 +74,7 @@ bool AssignmentList::alreadyExists(string assign)
 //returns: true if assignment is in a completed list, false otherwise
 bool AssignmentList::isCompleted(string assignDate)
 {
-    /* Date d;
+     Date d;
     try
     {
     d = Date(assignDate);
@@ -86,8 +87,7 @@ bool AssignmentList::isCompleted(string assignDate)
     list<Assignment>::iterator itr = search(completed, d);
     if (itr == completed.end()) return false;
     else return true;
-    return false;*/
-    return false;//remove after testing
+    return false;
 }
 
 
@@ -316,11 +316,12 @@ bool AssignmentList::editDescription(string assigned, string describe)
 }
 
 //Complete Assignment
-/*find the assignment in Assigned list. call add on the completed list. Delete from assignment list*/
+/*Verify completion date is valid. Find the assignment in Assigned list. Modifiy status to completed or late. move assignment to completed list. Delete from assignment list
+Returns true if status was changed and assignment moved to completed list.*/
 bool AssignmentList::completeAssignment(string assigned, string completeDate)
 {
     //program goes here
-    return true;
+    return false;
 }
 
 
