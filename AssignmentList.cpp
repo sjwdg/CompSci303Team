@@ -65,7 +65,7 @@ bool AssignmentList::alreadyExists(string assign)
     if (itr != assigned.end()) return true;
     itr = search(completed, d);
     if (itr != completed.end()) return true;
-    else return true;
+    else return false;
 =======
 
 }
