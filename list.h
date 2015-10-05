@@ -1,4 +1,9 @@
+#ifndef LIST_H
+#define LIST_H
+
+
 #include <cstddef>
+
 
 
 template<typename Item_Type>
@@ -267,3 +272,4 @@ public:
 
 };
 
+#endif // !LIST_H
