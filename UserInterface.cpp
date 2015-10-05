@@ -74,11 +74,12 @@ void UserInterface::displayProcessMenu()
 
         case 6:
             cout << "\n\n6 - Display number of late assignments was chosen\n\n";
-
+            //countNumOfLateAssign();
             break;
 
         case 7:
             cout << "\n\n7 - Save was chosen\n\n";
+            //save();
             break;
 
         case 8:
@@ -330,6 +331,17 @@ bool UserInterface::editDescMainMenu()
 
 ////Display number of late
 ///*Iterate through the completed list, incrementing an int to count the late ones*/
-//
+int UserInterface::countNumOfLateAssign()
+{
+    int temp = 0;
+    return temp;
+}
+
+
+
 ////Record assignment lists
 ///*Const Iterate through each, using a ofile stream to record each*/
+void UserInterface::save()
+{
+
+}

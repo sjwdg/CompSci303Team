@@ -33,7 +33,8 @@ public:
     bool editDueDateMainMenu();
     bool editDescMainMenu();
     bool editStatusMainMenu();
-
+    int countNumOfLateAssign();
+    void save();
 };
 
 #endif
