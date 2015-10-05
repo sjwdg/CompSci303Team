@@ -9,6 +9,7 @@ main.cpp
 Date.h & .cpp
 - verify that the files have not been modified from the instructors original.
 
+
 AssignmentList.cpp
  - logic and cut & paste issues(bottom of function)  
     in alreadyExists(string assignDate) function.
@@ -24,6 +25,7 @@ AssignmentList.cpp
  - add code for save()
  - verify stubs have been removed and replaced by code.
  
+
  AssignmentList.h
  - add header and comments
  - delete #include statement for list.h
@@ -35,6 +37,9 @@ AssignmentList.cpp
  
  UserInterface.h 
     DoneSusan - split into .h and .cpp
+  - complete editStatusMainMenu()
+  - Complete count
+  - complete save
  
  Final
   - run test code to make sure this works.
