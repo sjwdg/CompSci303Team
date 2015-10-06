@@ -3,7 +3,7 @@
 
 main.cpp
   -comments
-  -add algorithm and header onto top of file
+  -add algorithm abd header onto top of file
   
   
 Date.h & .cpp
