@@ -58,14 +58,14 @@ bool AssignmentList::alreadyExists(string assign)
     }
     catch (exception e)
     {
-        return false;
+        return false;//error in date then return false
     }
 
     list<Assignment>::iterator itr = search(assigned, d);
-    if (itr != assigned.end()) return true;
+    if (itr != assigned.end()) return true;//found the assignDate in assigned
     itr = search(completed, d);
-    if (itr != completed.end()) return true;
-    else return false;
+    if (itr != completed.end()) return true;//found the assignDate completed
+    else return false; //didn't find assignDate
    
 
 }
@@ -223,10 +223,10 @@ bool AssignmentList::addAssignment(string assigned, string describe, string due)
 
     catch (exception e)
     {
-        return false; //errpr occured, so return false 
+        return false; //error occurred, so return false 
     }
     
-    return true; //because no errors occured
+    return true; //because no errors occurred
         
 }
 
@@ -303,13 +303,37 @@ bool AssignmentList::compareDates(string lhs, string rhs)
     else return false;
 }
 
+
 //edit a date
 /*check the date*/
 /*find the node. then change the date*/
 bool AssignmentList::editDueDate(string assignedDate, string dueDate)
 {
-    list<Assignment>::iterator itr = search(assigned, assignedDate);
+
+    Date dateOfAssignment;
+    Date dateDue;
+    if (compareDates(assignedDate, dueDate) == true)
+    {
+        throw std::exception( "Bad due date or assigned date");
+        return false;
+    }
+
+    try
+    {
+        
+        dateOfAssignment = Date(assignedDate);
+        dateDue = Date(dueDate);
+    }
+    catch (exception e)
+    {
+        return false; //one of the dates was invalid and threw an exception
+    }
+    list<Assignment>::iterator itr = search(assigned, dateOfAssignment);
+    if (itr == assigned.end()) return false;//if false then assign date not in list
+   
+    else itr->setDueDate(dueDate);
     return true;
+
 }
 
 
@@ -317,27 +341,81 @@ bool AssignmentList::editDueDate(string assignedDate, string dueDate)
 /*find the node. edit the description */
 bool AssignmentList::editDescription(string assignedDate, string describe)
 {
-    //program goes here
+    Date dateOfAssignment;
+    
+    try
+    {
+        dateOfAssignment = Date(assignedDate);
+    }
+    catch (exception e)
+    {
+        return false; //date was invalid and threw an exception
+    }
+
+    list<Assignment>::iterator itr = search(assigned, dateOfAssignment);
+    if (itr == assigned.end()) return false;//if false then assign date not in list
+
+    itr->setDesc(describe);
+    return true;
+    
+}
+
+
+//Complete Assignment
+/*Verify completion date is valid. Find the assignment in Assigned list. Modify status to completed or late. move assignment to completed list. Delete from assignment list
+Returns true if status was changed and assignment moved to completed list.*/
+//bool AssignmentList::completeAssignment(string assignedDate, string completeStatus)
+//{
+//    //list<Assignment>::iterator itr = search(assigned, assignedDate);
+//    //setStat(completeStatus) //program goes here
+//        //program goes here
+//    return false;
+//}
+bool AssignmentList::completeAssignment(string assignDate, string completeDate)
+{
+   
+    Date dateOfAssignment;
+    Date dateOfCompletion;
+
+    if (compareDates(assignDate, completeDate) == true)
+    {
+        throw std::exception("Bad completion date or assigned date");
+        return false;
+    }
+
+    try
+    {
+        dateOfAssignment = Date(assignDate);
+        dateOfCompletion = Date(completeDate);
+    }
+    catch (exception e)
+    {
+        return false; //one of the dates was invalid and threw an exception
+    }
+    list<Assignment>::iterator itr = search(assigned, dateOfAssignment);
+    if (itr == assigned.end()) return false;//if false then assign date not in list
+
+    if (dateOfCompletion > itr->dueDate) itr->setStat("late");
+    else itr->setStat("complete");
+    addToCompleted(*itr);
+    assigned.remove(*itr);
     return true;
 }
 
-//Complete Assignment
-/*Verify completion date is valid. Find the assignment in Assigned list. Modifiy status to completed or late. move assignment to completed list. Delete from assignment list
-Returns true if status was changed and assignment moved to completed list.*/
-bool AssignmentList::completeAssignment(string assignedDate, string completeDate)
-{
-    //program goes here
-    return false;
-}
 
 
 //Display number of late
 /*Iterate through the completed list, incrementing an int to count the late ones*/
 int AssignmentList::getNumberLate()
 {
-    //program goes here
-    return 6;
+
+    int result = 0;
+    for (list < Assignment>::iterator itr = completed.begin(); itr != completed.end(); itr++)
+        if (itr->stat == 2) result++; //2 equates to "late" with the Status enum
+
+    return result;
 }
+
 
 
 //Record assignment lists
@@ -345,7 +423,37 @@ int AssignmentList::getNumberLate()
 returns true if records have been saved.  Otherwise returns false.*/
 bool AssignmentList::save()
 {
-    //program goes here
+    ofstream out("AssignmentFileTest2.txt");  
+    //ofstream out("AssignmentFile.txt"); Davide PUT THIS BACK IN WHEN YOU ARE DONE TESTING. VERIFY IT WORKS AT that time.
+
+        if (out.fail()) return false;
+    if (assigned.size() > 0) //we only start if the list isn't empty
+        for (list<Assignment>::iterator itr = assigned.begin(); itr != assigned.end(); itr++)
+        {
+            string assign = dateToString(itr->assignedDate);
+            string due = dateToString(itr->dueDate);
+            string status = "assigned";
+            string delim = ", ";
+
+            out << due << delim << itr->description << delim << assign << delim << status << endl;
+
+        }
+
+    if (completed.size() > 0) //we only start if the list isn't empty
+        for (list<Assignment>::iterator itr = completed.begin(); itr != completed.end(); itr++)
+        {
+            string assign = dateToString(itr->assignedDate);
+            string due = dateToString(itr->dueDate);
+            string status;
+            string delim = ", ";
+            if (itr->stat == 1) status = "completed";
+            else status = "late";
+
+            out << due << delim << itr->description << delim << assign << delim << status << endl;
+        }
+
+    out.close();
+
     return true;
 }
 

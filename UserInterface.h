@@ -1,27 +1,22 @@
-#ifndef USERINTERFACE_H
-#define USERINTERFACE_H
-/*
-starting this file with just a copy of what is before main() in main.cpp file.
-We can stage the functions over one by one.  As soon as they are working from
-UserInterface then we can take them out of main.cpp.
-*/
-
-#include <iostream>
-#include<sstream>
-#include<fstream>
-#include <string>
-//#include "list.h"- NOTE: no include guard on list.h file so deleting this.  Is included on Assignment.h file.
-#include "AssignmentList.h"
 /**************************************************************************************************
 Name: Susan Warren and David Jones
 Course: CompSci 303
 Program: Assignments Program 1
 Date: Oct 5, 2015
 Description:
-Program initiates the main menu from which the user chooses what operation they would like to do.  
+Program initiates the main menu from which the user chooses what operation they would like to do.
 The program then processes the choice and asks the user additional questions.
 
 ***************************************************************************************************/
+#ifndef USERINTERFACE_H
+#define USERINTERFACE_H
+#include <iostream>
+#include<sstream>
+#include<fstream>
+#include <string>
+//#include "list.h"- NOTE: no include guard on list.h file so do not add this.  Is included on Assignment.h file.
+#include "AssignmentList.h"
+
 using namespace std;
 
 class UserInterface

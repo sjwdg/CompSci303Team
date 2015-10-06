@@ -114,6 +114,7 @@ void UserInterface::switchMainMenu(int user_input)
 
 
 
+
 //this can only add to the assignment list from the main menu Add.
 bool UserInterface::addAssignMainMenu()
 {
@@ -125,6 +126,7 @@ bool UserInterface::addAssignMainMenu()
     cout << "Note: All assignments added from main menu are automatically given"
         << "\na status of \"assigned\". Status can only be edited from the main "
         << "\nmenu selection 5 (Complete assignment). \n\n";
+   
     cout << "When was this assigned? (mm-dd-yyyy): ";
 
     getline(cin, newAssignDate);//reads in the assignment date
@@ -136,18 +138,26 @@ bool UserInterface::addAssignMainMenu()
         return false;
     }
 
+    //if (getUserAssignDate() == false)//if false then don't add a new assignment to list cause it exists already
+    //    return false;//no changes to list are allowed or happened
+
     //ask user for due date and check if valid
     cout << "When is this due? (mm-dd-yyyy): ";
 
     try
     {
         getline(cin, newAssignDueDate);
-        li.compareDates(newAssignDueDate, newAssignDate);
+        if(li.compareDates(newAssignDueDate, newAssignDate)== false)
+        {
+            cout << "Due Date Error. Due date is less than assignment date. \n";
+            return false;
+        }
+        
     }
 
     catch (exception e)
     {
-        cout << "Due Date Error. Due date is less than assignment date. \n"; //can be changed
+        cout << "Date Error. \n"; 
         return false;
     }
 
@@ -200,7 +210,11 @@ bool UserInterface::editDueDateMainMenu()
             try
             {
                 getline(cin, dueDate);
-                li.compareDates(dueDate, assignDate);
+                if (li.compareDates(dueDate, assignDate) == false)
+                {
+                    cout << "Due Date Error. Due date is less than assignment date. \n";
+                    return false;
+                }
             }
 
             catch (exception e)
