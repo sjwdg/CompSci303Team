@@ -27,17 +27,14 @@ struct Assignment
     void setDesc(string desc);//change the description using a string.
     void setStat(string s); // change the status using the string
     
-
-    string getDueDate()  { return dateToString(dueDate); }
-
     friend ostream& operator <<(ostream& out, Assignment& work); //overload to print what we need
+    friend bool operator == (Assignment& left, const Assignment& other){ return (left.assignedDate == other.assignedDate); }
 
-    friend bool operator == (Assignment& left, Assignment& other){ return (left.assignedDate == other.assignedDate); }
-
+    /*friend bool operator == (Assignment& left, Assignment& other){ return (left.assignedDate == other.assignedDate); }
+*/
     string dateToString(Date& d);
 
     string getAssignedDate()  { return dateToString(assignedDate); }
-    
     string getDueDate()  { return dateToString(dueDate); }
 };
 

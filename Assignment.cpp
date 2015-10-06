@@ -10,7 +10,19 @@
 
 using namespace std;
 
-  
+//change the due date using a string converted to a Date.
+void Assignment::setDueDate(string dDate)
+{
+    dueDate = Date(dDate);
+}
+
+
+//change the description using a string.
+void Assignment::setDesc(string desc)
+{
+    description = desc;
+}
+
 
     //the lowercase first letter is guaranteed from user entry, and assumed from the input file
     //this function uses the string parameter in the Assignment constructor to set the status 
