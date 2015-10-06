@@ -11,35 +11,38 @@ Date.h & .cpp
 
 
 AssignmentList.cpp
- - logic and cut & paste issues(bottom of function)  
+ DoneDavid- logic and cut & paste issues(bottom of function)  
     in alreadyExists(string assignDate) function. -David. This should be finished
- - add Saved code
- - add comments & header
+ DoneDavid - add Saved code
+ - add comments
+ DoneSusan- add header
  - verify load() is throwing away bad dates.  Looks like 
   it throws and error but still saves the date in the lists. 
   Does not appear to verify due date vs assign date is valid. -David. This should be finished
- - add code for editDueDate()
- - add code for editDescription()
- - add code for completeAssignment()
- - add code for countLateAssignments()
- - add code for save()
- - verify stubs have been removed and replaced by code.
+ DoneSusan - add code for editDueDate()
+ DoneSusan - add code for editDescription()
+ DoneDavid - - add code for completeAssignment()
+ DoneDavid - - add code for countLateAssignments()
+ DoneDavid - - add code for save()
+ DoneSusan - verify stubs have been removed and replaced by code.
  
 
  AssignmentList.h
- - add header and comments
+ DoneSusan - add header
+ - add comments
  - delete #include statement for list.h
  
  
   Assignment.h
- - add header and comments
+ DoneSusan - add header
+ - add comments
  - delete #include statement for list.h
  
  UserInterface.h 
-    DoneSusan - split into .h and .cpp
-  - complete editStatusMainMenu()
-  - Complete count
-  - complete save
+  DoneSusan - split into .h and .cpp
+  DoneSusan - complete editStatusMainMenu()
+  DoneSusan - Complete count
+  DoneSusan - complete save
  
  Final
   - run test code to make sure this works.
