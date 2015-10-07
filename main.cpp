@@ -34,13 +34,18 @@ Assumptions:
 
 References
     •	Phone Book program
-    Program credits
+        -main.cpp
+        -vector_Based_Phone_Dirctory.h
+        -User_Interface.h
+
+Program credits
     •	Source code from Dr Kuhail or Objects, Abstraction, Data Structures, and Design Using C++
         o	Date.h
         o	const_list_iterator.h
         o	list.h
         o	list_iterator.h
         o	StringTokenizer.h
+
 
 Algorithm:
 1.	Data stored in the assignment is structured as follows:
