@@ -39,7 +39,7 @@ list<Assignment>::iterator AssignmentList::search(list<Assignment>& li, Date d)
 
     while (itr != li.end())
     {
-        if (itr->assignedDate == d) return itr; //check the assignedDate of thecurrent node to see if it matches our given date
+        if (itr->assignedDate == d) return itr; //check the assignedDate of the current node to see if it matches our given date
         ++itr; //if we don't have a match, continue looking
     }
     return itr; //We reached the end. The calling function will check for itr == li.end() to see if there was no find
@@ -119,7 +119,7 @@ string AssignmentList::dateToString(Date& d)
 
 string AssignmentList::displayAssignments()
 {
-    stringstream display; //used to build the entire string being sent to consol within UserInterface (the calling function)
+    stringstream display; //used to build the entire string being sent to console within UserInterface (the calling function)
     display << "Assigned List" << "\n" << "--------------------" << "\n";
 
     //iterate through all the assigned list assignments
@@ -135,7 +135,7 @@ string AssignmentList::displayAssignments()
     {
         display << *itr << "\n";
     }
-    string t = display.str(); //get the string from the stringstream object
+    string t = display.str(); //get the string from the string stream object
     return t; //return it to the caller 
 }
 
@@ -382,7 +382,7 @@ bool AssignmentList::save()
             string status = "assigned"; //all statuses in this list are "assigned" so no need to check
             string delim = ", ";
 
-            //result is MM-DD-YYYY, Description, MM-DD-YYYY, Statis then an endline
+            //result is MM-DD-YYYY, Description, MM-DD-YYYY, Status then an endline
             out << due << delim << itr->description << delim << assign << delim << status << endl;
 
         }
@@ -398,7 +398,7 @@ bool AssignmentList::save()
             if (itr->stat == 1) status = "completed";
             else status = "late";
 
-            //result is MM-DD-YYYY, Description, MM-DD-YYYY, Statis then an endline
+            //result is MM-DD-YYYY, Description, MM-DD-YYYY, Status then an endline
             out << due << delim << itr->description << delim << assign << delim << status << endl;
         }
 

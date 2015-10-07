@@ -20,15 +20,31 @@ class AssignmentList
 {
 private:
     void addToCompleted(Assignment& a);
+    //pre: valid assignment is passed from a member function
+    //post: assignment is added to the completed list
+    //returns: none
+
+
     list<Assignment>::iterator search(list<Assignment>& li, Date assignedDate);
+    //pre: list to be searched and a valid date is sent (date may or may not match an actual assignDate
+    //post: An assignment is found with matching assignedDate or the end of the list is reached
+    //returns: iterator pointing to the list end or the desired Assignment node
+
+
     list<Assignment> assigned;
+    //This list holds all assigned (not late or completed) assignments
+    //They are ordered by due date in ascending order
+    
+    
     list<Assignment> completed;
+    //This list holds all completed (not late or completed) assignments
+    //They are ordered by due date in ascending order
 
     void addAssignment(Assignment& a); 
-    //pre: valid data string exists in file. file is opened and being read. An assignment has been created.
-    //Lists have been generated.
-    //post: That assignment is added to the Assigned list
+    //pre: valid assignment is passed from a member function
+    //post: assignment is added to the assigned list
     //returns: none
+
 
     bool beenSaved;
 
@@ -88,37 +104,40 @@ public:
 
 
     bool addAssignment(string assigned, string descibe, string due);
-    //pre: valid assignment and due dates are passed as strings and a valid description is passed
+    //pre: valid assignment and due dates are passed as strings. valid description string is passed.
     //post: The parameters are used to make a two dates, then an assignment. That assignment is added to the Assigned list
     //returns: true if an assignment was successful, false otherwise
 
 
     bool editDueDate(string assignedDate, string dueDate);
-    //pre:assignedDate as a string and a new due date is passed, both are valid
+    //pre:assignedDate as a string and a new due date is passed
     //post: the assignment is found and edited. It is placed in ascending order within the assigned list (ordered by due date)
-    //returns: true if successfully edited, false otherwise
+    //returns: true if successfully edited, false otherwise  
 
 
     bool editDescription(string assignedDate, string describe);
-    //pre:assignedDate as a string and a new description is passed, both are valid
+    //pre:assignedDate as a string and a new description is passed
     //post: the assignment is found and edited. 
     //returns: true if successfully edited, false otherwise
 
 
     bool completeAssignment(string assignedDate, string completeDate);
-   //pre: assignedDate and a date of completion are passed as US formatted strings (both are valid)
-   //post: The assignment is found and it is marked "completed" or "late" based on the provided date strings. Removed from assigned, added to completed
-   //returns: true if the assignment was completed successfully, false otherwise.
+    //pre: assignedDate and a date of completion are passed as US formatted strings 
+    //post: The assignment is found and it is marked "completed" or "late" based on the provided date strings. Removed from assigned, added to completed
+    //returns: true if the assignment was completed successfully, false otherwise.  
+
 
     int getNumberLate();
     //pre:none
     //post: The number of late assignments are counted and stored in an int
     //returns: the number of late assignments
 
+
     bool save();
     //pre: none
     //post: The assignment file is overwritten to reflect new values after iterating through each list and writing a line for each assignment
     //returns: true if successful, false otherwise
+
 };
 
 #endif
