@@ -291,7 +291,6 @@ ix.	If the choice was invalid (not a number that is 1 thru 8) then the program:
     1.	prints to console:
         a.	“Number entered is not 1 to 8.  Please try again.”
         b.	Returns to main menu
-
 ***************************************************************************************************/
 
 #include "UserInterface.h"
