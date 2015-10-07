@@ -28,12 +28,7 @@ AssignmentList::~AssignmentList()
 }
 
 
-//use this to search by assigned date. Can take either list and returns an iterator if it finds the assignment
-//should work on empty lists and in the "not found" case
-//it will return an iterator that compares as 'true' to any list.end() if no match is found
-//pre: valid list and date is passed
-//post: iterator is made and is now pointing at a result
-//returns: An iterator pointing to a list.end() or to the sought assignment
+
 list<Assignment>::iterator AssignmentList::search(list<Assignment>& li, Date d)
 {
     list<Assignment>::iterator itr = li.begin();
@@ -51,9 +46,7 @@ list<Assignment>::iterator AssignmentList::search(list<Assignment>& li, Date d)
     return itr;
 }
 
-//pre: string is passed representing an assignment date
-//post: String is converted to a date, and that assignment date is searched
-//returns: true if assignment is in a list, false otherwise
+
 bool AssignmentList::alreadyExists(string assign)
 {
     Date d;
@@ -76,7 +69,6 @@ bool AssignmentList::alreadyExists(string assign)
 }
 
 
-//returns: true if assignment is in a completed list, false otherwise
 bool AssignmentList::isCompleted(string assignDate)
 {
     Date d;
@@ -96,9 +88,6 @@ bool AssignmentList::isCompleted(string assignDate)
 }
 
 
-//pre: string is passed representing an assignment date
-//post: string is made into a date and the assigned list is searched for that assignment date
-//returns: true if the assigned date exists in the assigned list, false otherwise
 bool AssignmentList::isAssigned(string assign)
 {
     Date d;
@@ -116,9 +105,7 @@ bool AssignmentList::isAssigned(string assign)
     else return true;
 }
 
-//pre: a date is passed
-//post: date is converted to string, then tokenized and reassembled with dashes
-//returns: string representing date with dashes
+
 string AssignmentList::dateToString(Date& d)
 {
     string temp = "";
@@ -133,12 +120,7 @@ string AssignmentList::dateToString(Date& d)
     return result;
 }
 
-//display 
-/*Iterate though each list with a const iterator. Print resuts to consol*/
 
-//pre: none
-//post: For each assignment, a block of text is made 
-//returns: a string for the user interface to display
 string AssignmentList::displayAssignments()
 {
     stringstream display;
@@ -162,10 +144,6 @@ string AssignmentList::displayAssignments()
 }
 
 
-/*Private function that adds assignment to assigned list
-pre: Assignment is passed that should be added 
-post: The appropriate place is found via iteration and the assignment is placed
-returns: none*/
 void  AssignmentList::addAssignment(Assignment& a)
 {
     if (assigned.empty()) assigned.push_front(a); //if list is empty, simply push_front
@@ -188,9 +166,7 @@ void  AssignmentList::addAssignment(Assignment& a)
     }
 }
 
-//pre: assignment is made with correct values and passed
-//post: assignment is added to 'completed' list
-//returns: none
+
 void AssignmentList::addToCompleted(Assignment& a)
 {
     if (completed.empty()) completed.push_front(a); //if list is empty, simply push_front
@@ -212,10 +188,7 @@ void AssignmentList::addToCompleted(Assignment& a)
     }
 }
 
-/*This can only add to the assignment list.
-pre: correct values are passed in string form
-post: an assignment is made and passed to the function to add to the lists
-returns: a bool denoting success or failure*/
+
 bool AssignmentList::addAssignment(string assigned, string describe, string due)
 {
 
@@ -238,13 +211,6 @@ bool AssignmentList::addAssignment(string assigned, string describe, string due)
 }
 
 
-//this can add to eitherlist
-//We assume that the file is correct, which is reasonable if 
-//   we assume this is a program with its own files
-//just in case, a line can have an error which would be skipped
-//pre: Assignment file is already known. values therein will not contain letters for dates, nor improper data otherwise
-//post: The functions to add to lists are used and the lists are populated
-//returns: none
 void AssignmentList::load()
 {
     ifstream fin;
@@ -291,9 +257,7 @@ void AssignmentList::load()
     fin.close();
 }
 
-//pre: two strings as dates are passed
-//post: exception if dates are invalid, otherwise a bool shows the comparison
-//returns: true if lhs > rhs, false otherwise
+
 bool AssignmentList::compareDates(string lhs, string rhs)
 {
     Date left, right;
@@ -311,9 +275,7 @@ bool AssignmentList::compareDates(string lhs, string rhs)
 }
 
 
-//edit a date
-/*check the date*/
-/*find the assignment, change the due date, move the assignment in the list so the list is ordered by due date*/
+
 bool AssignmentList::editDueDate(string assignedDate, string dueDate)
 {
 
@@ -352,8 +314,7 @@ bool AssignmentList::editDueDate(string assignedDate, string dueDate)
 }
 
 
-//edit a description
-/*find the node. edit the description */
+
 bool AssignmentList::editDescription(string assignedDate, string describe)
 {
     Date dateOfAssignment;
@@ -376,9 +337,6 @@ bool AssignmentList::editDescription(string assignedDate, string describe)
 }
 
 
-//Complete Assignment
-/*Verify completion date is valid. Find the assignment in Assigned list. Modify status to completed or late. move assignment to completed list. Delete from assignment list
-Returns true if status was changed and assignment moved to completed list.*/
 bool AssignmentList::completeAssignment(string assignDate, string completeDate)
 {
 
@@ -412,8 +370,6 @@ bool AssignmentList::completeAssignment(string assignDate, string completeDate)
 
 
 
-//Display number of late
-/*Iterate through the completed list, incrementing an int to count the late ones*/
 int AssignmentList::getNumberLate()
 {
 
@@ -425,10 +381,6 @@ int AssignmentList::getNumberLate()
 }
 
 
-
-//Record assignment lists
-/*Const Iterate through each, using a ofile stream to record each
-returns true if records have been saved.  Otherwise returns false.*/
 bool AssignmentList::save()
 {
     //ofstream out("AssignmentFileTest2.txt");

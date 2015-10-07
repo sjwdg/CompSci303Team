@@ -1,5 +1,5 @@
 /**************************************************************************************************
-Name: David Jones and Susan Warren
+Name: David Jones
 Course: CompSci 303
 Program: Assignments Program 1
 Date: Oct 5, 2015

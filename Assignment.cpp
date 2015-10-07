@@ -1,5 +1,5 @@
 /**************************************************************************************************
-Name: David Jones and Susan Warren
+Name: David Jones
 Course: CompSci 303
 Program: Assignments Program 1
 Date: Oct 5, 2015
@@ -42,7 +42,7 @@ void Assignment::setStat(string a)
 }
 
 
-//if this doesn't work, we can make it a member function. Or, we can manually access the attributes and print in the "save()" body
+//overloaded operator <<
 ostream& operator <<(ostream& out, Assignment& work)
 {
     //print out the stuff
