@@ -5,6 +5,7 @@ Program: Assignments Program 1
 Date: Oct 5, 2015
 Description:
 Program manages assignment. Associated .cpp file is Assignment.cpp
+
 ***************************************************************************************************/
 
 #ifndef ASSIGNMENT_H

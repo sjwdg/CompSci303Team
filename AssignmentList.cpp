@@ -8,12 +8,10 @@ Program manages assignment lists. Associated .h file is AssignmentList.h
 ***************************************************************************************************/
 
 #include "AssignmentList.h"
-
 #include <iostream>
 #include<sstream>
 #include<fstream>
 #include <string>
-
 using namespace std;
 
 

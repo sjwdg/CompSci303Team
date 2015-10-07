@@ -10,7 +10,7 @@ Program manages assignments. Associated .h file is Assignment.h
 #include <iostream>
 #include<sstream>
 #include<fstream>
-#include <string> //dont know if this is needed. We can remove later if not 
+#include <string> 
 #include "Date.h" 
 #include "list.h"
 #include "Assignment.h"
