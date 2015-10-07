@@ -29,6 +29,13 @@ struct Assignment
 
     Assignment(Date due, string description, Date assign, string status) :
         dueDate(due), description(description), assignedDate(assign){setStat(status);};
+    /*
+    Constructor to ge
+    pre:
+    post:
+    return:
+    */
+
 
     void setDueDate(string dDate);//change the due date using a string
     void setDesc(string desc);//change the description using a string.
