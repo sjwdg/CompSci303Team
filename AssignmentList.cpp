@@ -1,4 +1,11 @@
-
+/**************************************************************************************************
+Name: David Jones and Susan Warren
+Course: CompSci 303
+Program: Assignments Program 1
+Date: Oct 5, 2015
+Description:
+Program manages assignment lists. Associated .h file is AssignmentList.h
+***************************************************************************************************/
 
 #include "AssignmentList.h"
 
@@ -12,7 +19,7 @@ using namespace std;
 
 AssignmentList::AssignmentList()
 {
-    
+
     beenSaved = true;
 }
 
@@ -66,7 +73,7 @@ bool AssignmentList::alreadyExists(string assign)
     itr = search(completed, d);
     if (itr != completed.end()) return true;//found the assignDate completed
     else return false; //didn't find assignDate
-   
+
 
 }
 
@@ -74,14 +81,14 @@ bool AssignmentList::alreadyExists(string assign)
 //returns: true if assignment is in a completed list, false otherwise
 bool AssignmentList::isCompleted(string assignDate)
 {
-     Date d;
+    Date d;
     try
     {
-    d = Date(assignDate);
+        d = Date(assignDate);
     }
     catch (exception e)
     {
-    return false;
+        return false;
     }
 
     list<Assignment>::iterator itr = search(completed, d);
@@ -114,17 +121,17 @@ bool AssignmentList::isAssigned(string assign)
 //pre: a date is passed
 //post: date is converted to string, then tokenized and reassembled with dashes
 //returns: string representing date with dashes
-string AssignmentList::dateToString(Date& d) 
+string AssignmentList::dateToString(Date& d)
 {
     string temp = "";
-    
+
 
     string s = d.toString();
     String_Tokenizer st(s, "/");
     string month = st.next_token();
     string day = st.next_token();
     string year = st.next_token();
-    string result =  month + "-" +day + "-" + year;
+    string result = month + "-" + day + "-" + year;
     return result;
 }
 
@@ -134,13 +141,13 @@ string AssignmentList::dateToString(Date& d)
 //pre: none
 //post: For each assignment, a block of text is made 
 //returns: a string for the user interface to display
-string AssignmentList::displayAssignments() 
+string AssignmentList::displayAssignments()
 {
     stringstream display;
     display << "Assigned List" << "\n" << "--------------------" << "\n";
 
     //iterate through all the assigned list assignments
-    for (list<Assignment>::iterator itr = assigned.begin() ; itr != assigned.end(); itr++)
+    for (list<Assignment>::iterator itr = assigned.begin(); itr != assigned.end(); itr++)
     {
         display << *itr << "\n";
     }
@@ -153,13 +160,14 @@ string AssignmentList::displayAssignments()
         display << *itr << "\n";
     }
     string t = display.str();
-    return t ;
+    return t;
 }
 
 
-//pre: and Assignment is passed that should be added 
-//post: The appropriate place is found via iteration and the assignment is placed
-//returns: none
+/*Private function that adds assignment to assigned list
+pre: Assignment is passed that should be added 
+post: The appropriate place is found via iteration and the assignment is placed
+returns: none*/
 void  AssignmentList::addAssignment(Assignment& a)
 {
     if (assigned.empty()) assigned.push_front(a); //if list is empty, simply push_front
@@ -169,7 +177,8 @@ void  AssignmentList::addAssignment(Assignment& a)
         {
             for (list<Assignment>::iterator itr = assigned.begin(); itr != assigned.end(); ++itr)
             {
-                if (itr->assignedDate > a.assignedDate) //find where one is > , if exists
+                //if (itr->assignedDate > a.assignedDate) //find where one is > , if exists
+                if (itr->dueDate > a.dueDate) //find where one is > , if exists
                 {
                     assigned.insert(itr, a); //put it where the larger one was
                     return;
@@ -205,10 +214,10 @@ void AssignmentList::addToCompleted(Assignment& a)
     }
 }
 
-//this can only add to the assignment list.
-//pre: correct vales are passed in string form
-//post: an assignment is made and passed to the function to add to the lists
-//returns: a bool denoting success or failure
+/*This can only add to the assignment list.
+pre: correct values are passed in string form
+post: an assignment is made and passed to the function to add to the lists
+returns: a bool denoting success or failure*/
 bool AssignmentList::addAssignment(string assigned, string describe, string due)
 {
 
@@ -225,9 +234,9 @@ bool AssignmentList::addAssignment(string assigned, string describe, string due)
     {
         return false; //error occurred, so return false 
     }
-    
+
     return true; //because no errors occurred
-        
+
 }
 
 
@@ -242,11 +251,11 @@ void AssignmentList::load()
 {
     ifstream fin;
     fin.open("AssignmentFile.txt");
-    
+
     if (fin.fail())
-        cout << "Error. AssignmentFile.txt failed to open"; 
-        //added this error message in because prog is not printing out data
-    
+        cout << "Error. AssignmentFile.txt failed to open";
+    //added this error message in because prog is not printing out data
+
     string s;
 
     while (getline(fin, s))
@@ -260,13 +269,13 @@ void AssignmentList::load()
             string des(st.next_token());
             string assignString = st.next_token();
             string status(st.next_token());
-            
-            
+
+
             des = des.substr(1, des.length()); //subst without the blank space
             Date assignDate(assignString);
             //cout << "reading assignDate " << assignString << endl;
             Date due(dueString);
-                  
+
             status = status.substr(1, status.length()); //substr without the blank space
             status[0] = tolower(status[0]); //ensures our checks work regardless of lower or upper case first letter
 
@@ -280,8 +289,8 @@ void AssignmentList::load()
         {
             cout << "\n Input file error: Dropping one assignment \n";
         }
-
     }
+    fin.close();
 }
 
 //pre: two strings as dates are passed
@@ -306,21 +315,22 @@ bool AssignmentList::compareDates(string lhs, string rhs)
 
 //edit a date
 /*check the date*/
-/*find the node. then change the date*/
+/*find the assignment, change the due date, move the assignment in the list so the list is ordered by due date*/
 bool AssignmentList::editDueDate(string assignedDate, string dueDate)
 {
 
     Date dateOfAssignment;
     Date dateDue;
-    if (compareDates(assignedDate, dueDate) == true)
+    
+    if (compareDates(dueDate, assignedDate) == false)
     {
-        throw std::exception( "Bad due date or assigned date");
+        throw std::exception("Bad due date or assigned date");
         return false;
     }
 
     try
     {
-        
+
         dateOfAssignment = Date(assignedDate);
         dateDue = Date(dueDate);
     }
@@ -330,8 +340,15 @@ bool AssignmentList::editDueDate(string assignedDate, string dueDate)
     }
     list<Assignment>::iterator itr = search(assigned, dateOfAssignment);
     if (itr == assigned.end()) return false;//if false then assign date not in list
-   
-    else itr->setDueDate(dueDate);
+    
+    else
+    {
+        itr->setDueDate(dueDate);
+        Assignment temp =*itr;
+        addAssignment(temp);
+        assigned.remove(*itr);
+    }
+
     return true;
 
 }
@@ -342,7 +359,7 @@ bool AssignmentList::editDueDate(string assignedDate, string dueDate)
 bool AssignmentList::editDescription(string assignedDate, string describe)
 {
     Date dateOfAssignment;
-    
+
     try
     {
         dateOfAssignment = Date(assignedDate);
@@ -357,27 +374,20 @@ bool AssignmentList::editDescription(string assignedDate, string describe)
 
     itr->setDesc(describe);
     return true;
-    
+
 }
 
 
 //Complete Assignment
 /*Verify completion date is valid. Find the assignment in Assigned list. Modify status to completed or late. move assignment to completed list. Delete from assignment list
 Returns true if status was changed and assignment moved to completed list.*/
-//bool AssignmentList::completeAssignment(string assignedDate, string completeStatus)
-//{
-//    //list<Assignment>::iterator itr = search(assigned, assignedDate);
-//    //setStat(completeStatus) //program goes here
-//        //program goes here
-//    return false;
-//}
 bool AssignmentList::completeAssignment(string assignDate, string completeDate)
 {
-   
+
     Date dateOfAssignment;
     Date dateOfCompletion;
 
-    if (compareDates(assignDate, completeDate) == true)
+    if (compareDates(completeDate, assignDate) == false)
     {
         throw std::exception("Bad completion date or assigned date");
         return false;
@@ -423,10 +433,14 @@ int AssignmentList::getNumberLate()
 returns true if records have been saved.  Otherwise returns false.*/
 bool AssignmentList::save()
 {
-    ofstream out("AssignmentFileTest2.txt");  
-    //ofstream out("AssignmentFile.txt"); Davide PUT THIS BACK IN WHEN YOU ARE DONE TESTING. VERIFY IT WORKS AT that time.
+    //ofstream out("AssignmentFileTest2.txt");
+    ofstream out("AssignmentFile.txt"); 
 
-        if (out.fail()) return false;
+    if (out.fail())
+    {
+        cout << "Saves failure.\n";
+        return false;//failure to save
+    }
     if (assigned.size() > 0) //we only start if the list isn't empty
         for (list<Assignment>::iterator itr = assigned.begin(); itr != assigned.end(); itr++)
         {
@@ -454,7 +468,7 @@ bool AssignmentList::save()
 
     out.close();
 
-    return true;
+    return true;//file has been saved
 }
 
 

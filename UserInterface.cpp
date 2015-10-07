@@ -5,7 +5,7 @@ Program: Assignments Program 1
 Date: Oct 5, 2015
 Description:
 Program initiates the main menu from which the user chooses what operation they would like to do.
-The program then processes the choice and asks the user additional questions.
+The program then processes the choice and asks the user additional questions. Associated .h file is UserInterface.h
 
 **************************************************************************************************/
 #include <iostream>
@@ -43,11 +43,11 @@ void UserInterface::displayProcessMenu()
     {
         //comments are for the needed input 
         cout << "\nSelect from the following options: \n"
-            << "1. Display Assignments \n"  
-            << "2. Add assignment \n" 
-            << "3. Edit a Due Date \n" 
-            << "4. Edit a description  \n" 
-            << "5. Complete an assignment \n" 
+            << "1. Display Assignments \n"
+            << "2. Add assignment \n"
+            << "3. Edit a Due Date \n"
+            << "4. Edit a description  \n"
+            << "5. Complete an assignment \n"
             << "6. Display number of late assignments \n"
             << "7. Save \n"
             << "8. Exit \n\n"
@@ -55,7 +55,7 @@ void UserInterface::displayProcessMenu()
 
         user_input = get_input(); //gets the users input. Makes sure it's valid
         switchMainMenu(user_input);//call switch statement for main menu choices
-        
+
     }
 }
 
@@ -97,23 +97,55 @@ void UserInterface::switchMainMenu(int user_input)
 
     case 7:
         cout << "\n\n7 - Save was chosen\n\n";
-        isChanged = !li.save();
-        if (isChanged == false)cout << "Changes have been saved.\n";
+        
+        if (isChanged == true)
+        {
+            isChanged = !li.save();
+            cout << "Changes have been saved.\n";
+            break;
+        }
+        else
+        {
+            cout << "Records have not changed. Save is not required\n";
+        }
         break;
 
     case 8:
-        cout << "\n\n8 - Exit was chosen. Now Exiting Program\n\n";
-        system("pause");
-        exit(0);
+        cout << "\n\n8 - Exit was chosen.";
+        if (isChanged == false)
+        {
+            cout << " Now Exiting Program\n\n";
+            system("pause");
+            exit(0);
+        }
+        else
+        {
+            cout << "\n\nData has not been saved. Returning to main menu\n\n";
+            break;
+        }
+            
 
     default:
-        cout << "\n\nNumber entered is not 1 to 8.\n\n";
+        cout << "\n\nNumber entered is not 1 to 8. Please try again.\n\n";
     }
-
 }
 
-
-
+//
+//bool UserInterface::getUserAssignDate()
+//{
+//    cout << "When was this assigned? (mm-dd-yyyy): ";
+//
+//    getline(cin, newAssignDate);//reads in the assignment date
+//
+//    //check if duplicate assignment date in list
+//    if (li.alreadyExists(newAssignDate) == true)
+//    {
+//        cout << "Assigned Date Error. Date entered has been used previously. \n";
+//        return false;
+//    }
+//
+//
+//}
 
 //this can only add to the assignment list from the main menu Add.
 bool UserInterface::addAssignMainMenu()
@@ -126,7 +158,7 @@ bool UserInterface::addAssignMainMenu()
     cout << "Note: All assignments added from main menu are automatically given"
         << "\na status of \"assigned\". Status can only be edited from the main "
         << "\nmenu selection 5 (Complete assignment). \n\n";
-   
+
     cout << "When was this assigned? (mm-dd-yyyy): ";
 
     getline(cin, newAssignDate);//reads in the assignment date
@@ -147,17 +179,17 @@ bool UserInterface::addAssignMainMenu()
     try
     {
         getline(cin, newAssignDueDate);
-        if(li.compareDates(newAssignDueDate, newAssignDate)== false)
+        if (li.compareDates(newAssignDueDate, newAssignDate) == false)
         {
-            cout << "Due Date Error. Due date is less than assignment date. \n";
+            cout << "Due Date Error. Due date is not greater than assignment date. \n";
             return false;
         }
-        
+
     }
 
     catch (exception e)
     {
-        cout << "Date Error. \n"; 
+        cout << "Date Error. \n";
         return false;
     }
 
@@ -212,14 +244,14 @@ bool UserInterface::editDueDateMainMenu()
                 getline(cin, dueDate);
                 if (li.compareDates(dueDate, assignDate) == false)
                 {
-                    cout << "Due Date Error. Due date is less than assignment date. \n";
+                    cout << "Due Date Error. Due date is not greater than assignment date. \n";
                     return false;
                 }
             }
 
             catch (exception e)
             {
-                cout << "Due Date Error. Due date is less than assignment date. \n"; //can be changed
+                cout << "Date Error.\n"; //can be changed
                 return false;
             }
 
@@ -235,7 +267,7 @@ bool UserInterface::editDueDateMainMenu()
         cout << "\nAssignment date " << assignDate << " not in list\n";
         return false;//because not in list
     }
-   
+
     return false;
 }
 
@@ -274,7 +306,7 @@ bool UserInterface::editDescMainMenu()
                 cout << "\nError in description. Returning to main menu\n\n";
                 return false;
             }
-           
+
             addCheck = li.editDescription(assignDate, desc);
 
             if (addCheck) cout << "Edited description for assignment " << assignDate << endl;
@@ -323,16 +355,20 @@ bool UserInterface::editStatusMainMenu()
             try
             {
                 getline(cin, completeDate);
-                li.compareDates(assignDate, completeDate); 
+                if (li.compareDates(completeDate, assignDate) == false)
+                {
+                    cout << "Completion Date Error. Completion date must be later than assignment date. \n";
+                    return false;
+                }
             }
 
             catch (exception e)
             {
-                cout << "\nError. Completion date is less than assignment date. \n"; 
+                cout << "\nDate Error.\n";
                 return false;
             }
 
-            
+
             //Verify if completedDate is valid and if so edit assignment's status and move to completion list.
             addCheck = li.completeAssignment(assignDate, completeDate);
 

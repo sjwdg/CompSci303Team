@@ -1,3 +1,12 @@
+/**************************************************************************************************
+Name: David Jones and Susan Warren
+Course: CompSci 303
+Program: Assignments Program 1
+Date: Oct 5, 2015
+Description:
+Program manages assignment lists. Associated .cpp file is AssignmentList.cpp
+***************************************************************************************************/
+
 #ifndef ASSIGNMENTLIST_H
 #define ASSIGNMENTLIST_H
 
@@ -11,8 +20,8 @@ private:
     list<Assignment>::iterator search(list<Assignment>& li, Date assignedDate);
     list<Assignment> assigned;
     list<Assignment> completed;
-    
-    void addAssignment(Assignment& a);
+
+    void addAssignment(Assignment& a); 
     bool beenSaved;
 
 public:
@@ -25,11 +34,11 @@ public:
     bool alreadyExists(string assignedDate);
     bool isCompleted(string assignedDate);
     bool isAssigned(string assignedDate);
-    string dateToString(Date& d) ;
-    
-    
-    string displayAssignments() ;
-    
+    string dateToString(Date& d);
+
+
+    string displayAssignments();
+
     bool addAssignment(string assigned, string descibe, string due);
     bool editDueDate(string assignedDate, string dueDate);
     bool editDescription(string assignedDate, string describe);
