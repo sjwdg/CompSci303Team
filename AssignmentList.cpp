@@ -18,7 +18,6 @@ using namespace std;
 AssignmentList::AssignmentList()
 {
 
-    beenSaved = true;
 }
 
 
@@ -31,19 +30,19 @@ AssignmentList::~AssignmentList()
 
 list<Assignment>::iterator AssignmentList::search(list<Assignment>& li, Date d)
 {
-    list<Assignment>::iterator itr = li.begin();
-    if (li.size() == 0)
+    list<Assignment>::iterator itr = li.begin();  //This iterator will look through the list 
+    if (li.size() == 0) //There is nothing in the list
     {
-        itr = li.end();
-        return itr;
+        itr = li.end(); 
+        return itr; //we return itr as li.end() to signify it reached the end without finding the assignedDate match
     }
 
     while (itr != li.end())
     {
-        if (itr->assignedDate == d) return itr;
-        ++itr;
+        if (itr->assignedDate == d) return itr; //check the assignedDate of thecurrent node to see if it matches our given date
+        ++itr; //if we don't have a match, continue looking
     }
-    return itr;
+    return itr; //We reached the end. The calling function will check for itr == li.end() to see if there was no find
 }
 
 
@@ -61,11 +60,9 @@ bool AssignmentList::alreadyExists(string assign)
 
     list<Assignment>::iterator itr = search(assigned, d);
     if (itr != assigned.end()) return true;//found the assignDate in assigned
-    itr = search(completed, d);
+    itr = search(completed, d); //didn't find in assigned, so lets search completed
     if (itr != completed.end()) return true;//found the assignDate completed
-    else return false; //didn't find assignDate
-
-
+    else return false; //didn't find assignDate to match the desired date
 }
 
 
@@ -81,10 +78,9 @@ bool AssignmentList::isCompleted(string assignDate)
         return false;
     }
 
-    list<Assignment>::iterator itr = search(completed, d);
-    if (itr == completed.end()) return false;
-    else return true;
-    return false;
+    list<Assignment>::iterator itr = search(completed, d); //searches through completed for an assignedDate matching d
+    if (itr == completed.end()) return false; //didn't find a match, so it isn't in completed
+    else return true; // itr isn't completed.end(), so it must be pointing to a match, therefore the assignment exists in completed
 }
 
 
@@ -100,15 +96,15 @@ bool AssignmentList::isAssigned(string assign)
         return false;
     }
 
-    list<Assignment>::iterator itr = search(assigned, d);
-    if (itr == assigned.end()) return false;
-    else return true;
+    list<Assignment>::iterator itr = search(assigned, d);//searches through assigned for an assignedDate matching d
+    if (itr == assigned.end()) return false;//didn't find a match, so it isn't in assigned
+    else return true;// itr isn't assigned.end(), so it must be pointing to a match, therefore the assignment exists in assigned
 }
 
 
 string AssignmentList::dateToString(Date& d)
 {
-    string temp = "";
+    string temp = ""; //will eventually hold the string representing the date in US format
 
 
     string s = d.toString();
@@ -123,7 +119,7 @@ string AssignmentList::dateToString(Date& d)
 
 string AssignmentList::displayAssignments()
 {
-    stringstream display;
+    stringstream display; //used to build the entire string being sent to consol within UserInterface (the calling function)
     display << "Assigned List" << "\n" << "--------------------" << "\n";
 
     //iterate through all the assigned list assignments
@@ -139,8 +135,8 @@ string AssignmentList::displayAssignments()
     {
         display << *itr << "\n";
     }
-    string t = display.str();
-    return t;
+    string t = display.str(); //get the string from the stringstream object
+    return t; //return it to the caller 
 }
 
 
@@ -149,11 +145,11 @@ void  AssignmentList::addAssignment(Assignment& a)
     if (assigned.empty()) assigned.push_front(a); //if list is empty, simply push_front
     else
     {
-        if (assigned.find(a) == assigned.end())
+        if (assigned.find(a) == assigned.end()) //means that the assignment was not found 
         {
             for (list<Assignment>::iterator itr = assigned.begin(); itr != assigned.end(); ++itr)
             {
-                //if (itr->assignedDate > a.assignedDate) //find where one is > , if exists
+                
                 if (itr->dueDate > a.dueDate) //find where one is > , if exists
                 {
                     assigned.insert(itr, a); //put it where the larger one was
@@ -176,7 +172,7 @@ void AssignmentList::addToCompleted(Assignment& a)
         {
             for (list<Assignment>::iterator itr = completed.begin(); itr != completed.end(); ++itr)
             {
-                if (itr->assignedDate > a.assignedDate) //find where one is > , if exists
+                if (itr->dueDate > a.dueDate) //find where one is > , if exists
                 {
                     completed.insert(itr, a); //put it where the larger one was
                     return;
@@ -214,7 +210,7 @@ bool AssignmentList::addAssignment(string assigned, string describe, string due)
 void AssignmentList::load()
 {
     ifstream fin;
-    fin.open("AssignmentFile.txt");
+    fin.open("AssignmentFile.txt"); //This file will hold the pre-existing assignments, if applicable. It will also be saved to later
 
     if (fin.fail())
         cout << "Error. AssignmentFile.txt failed to open";
@@ -237,7 +233,6 @@ void AssignmentList::load()
 
             des = des.substr(1, des.length()); //subst without the blank space
             Date assignDate(assignString);
-            //cout << "reading assignDate " << assignString << endl;
             Date due(dueString);
 
             status = status.substr(1, status.length()); //substr without the blank space
@@ -282,12 +277,6 @@ bool AssignmentList::editDueDate(string assignedDate, string dueDate)
     Date dateOfAssignment;
     Date dateDue;
     
-    if (compareDates(dueDate, assignedDate) == false)
-    {
-        throw std::exception("Bad due date or assigned date");
-        return false;
-    }
-
     try
     {
 
@@ -343,12 +332,6 @@ bool AssignmentList::completeAssignment(string assignDate, string completeDate)
     Date dateOfAssignment;
     Date dateOfCompletion;
 
-    if (compareDates(completeDate, assignDate) == false)
-    {
-        throw std::exception("Bad completion date or assigned date");
-        return false;
-    }
-
     try
     {
         dateOfAssignment = Date(assignDate);
@@ -361,8 +344,8 @@ bool AssignmentList::completeAssignment(string assignDate, string completeDate)
     list<Assignment>::iterator itr = search(assigned, dateOfAssignment);
     if (itr == assigned.end()) return false;//if false then assign date not in list
 
-    if (dateOfCompletion > itr->dueDate) itr->setStat("late");
-    else itr->setStat("complete");
+    if (dateOfCompletion > itr->dueDate) itr->setStat("late"); //set "late" if completed after due date
+    else itr->setStat("completed");                             //set "completed" if completed on or before due date 
     addToCompleted(*itr);
     assigned.remove(*itr);
     return true;
@@ -374,10 +357,10 @@ int AssignmentList::getNumberLate()
 {
 
     int result = 0;
-    for (list < Assignment>::iterator itr = completed.begin(); itr != completed.end(); itr++)
+    for (list < Assignment>::iterator itr = completed.begin(); itr != completed.end(); itr++) //iterate through the completed list
         if (itr->stat == 2) result++; //2 equates to "late" with the Status enum
 
-    return result;
+    return result; //return the number of Assignments in completed list with "late" status
 }
 
 
@@ -392,27 +375,30 @@ bool AssignmentList::save()
         return false;//failure to save
     }
     if (assigned.size() > 0) //we only start if the list isn't empty
-        for (list<Assignment>::iterator itr = assigned.begin(); itr != assigned.end(); itr++)
+        for (list<Assignment>::iterator itr = assigned.begin(); itr != assigned.end(); itr++)//iterate through assigned and write a line for each assignment
         {
             string assign = dateToString(itr->assignedDate);
             string due = dateToString(itr->dueDate);
-            string status = "assigned";
+            string status = "assigned"; //all statuses in this list are "assigned" so no need to check
             string delim = ", ";
 
+            //result is MM-DD-YYYY, Description, MM-DD-YYYY, Statis then an endline
             out << due << delim << itr->description << delim << assign << delim << status << endl;
 
         }
 
     if (completed.size() > 0) //we only start if the list isn't empty
-        for (list<Assignment>::iterator itr = completed.begin(); itr != completed.end(); itr++)
+        for (list<Assignment>::iterator itr = completed.begin(); itr != completed.end(); itr++) //iterate through completed and write a line for each assignment
         {
             string assign = dateToString(itr->assignedDate);
             string due = dateToString(itr->dueDate);
             string status;
             string delim = ", ";
+            //status on each assignment could be 1="completed" or 2="late". check and << accordingly
             if (itr->stat == 1) status = "completed";
             else status = "late";
 
+            //result is MM-DD-YYYY, Description, MM-DD-YYYY, Statis then an endline
             out << due << delim << itr->description << delim << assign << delim << status << endl;
         }
 
@@ -420,9 +406,3 @@ bool AssignmentList::save()
 
     return true;//file has been saved
 }
-
-
-
-
-
-
