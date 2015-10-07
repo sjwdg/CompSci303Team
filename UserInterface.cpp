@@ -19,7 +19,6 @@ The program then processes the choice and asks the user additional questions. As
 using namespace std;
 
 
-//Get input from console.  Does not check if input is an int
 int UserInterface::get_input()
 {
     int input = 0;
@@ -36,7 +35,6 @@ int UserInterface::get_input()
 }
 
 
-//displays main menu and calls function to process menu choices
 void UserInterface::displayProcessMenu()
 {
     int user_input = 0;
@@ -61,7 +59,6 @@ void UserInterface::displayProcessMenu()
 }
 
 
-//process menu choices. calls functions.
 void UserInterface::switchMainMenu(int user_input)
 {
     //use a switch to do one of the following actions.
@@ -131,24 +128,7 @@ void UserInterface::switchMainMenu(int user_input)
     }
 }
 
-//
-//bool UserInterface::getUserAssignDate()
-//{
-//    cout << "When was this assigned? (mm-dd-yyyy): ";
-//
-//    getline(cin, newAssignDate);//reads in the assignment date
-//
-//    //check if duplicate assignment date in list
-//    if (li.alreadyExists(newAssignDate) == true)
-//    {
-//        cout << "Assigned Date Error. Date entered has been used previously. \n";
-//        return false;
-//    }
-//
-//
-//}
 
-//this can only add to the assignment list from the main menu Add.
 bool UserInterface::addAssignMainMenu()
 {
     string newAssignDueDate;
@@ -170,9 +150,6 @@ bool UserInterface::addAssignMainMenu()
         cout << "Assigned Date Error. Date entered has been used previously. \n";
         return false;
     }
-
-    //if (getUserAssignDate() == false)//if false then don't add a new assignment to list cause it exists already
-    //    return false;//no changes to list are allowed or happened
 
     //ask user for due date and check if valid
     cout << "When is this due? (mm-dd-yyyy): ";
@@ -215,7 +192,6 @@ bool UserInterface::addAssignMainMenu()
 }
 
 
-//changes due date for a specific assignment
 bool UserInterface::editDueDateMainMenu()
 {
     string dueDate;
@@ -273,8 +249,6 @@ bool UserInterface::editDueDateMainMenu()
 }
 
 
-//edit a description
-/*find the node. edit the description */
 bool UserInterface::editDescMainMenu()
 {
     string assignDate;
@@ -325,8 +299,6 @@ bool UserInterface::editDescMainMenu()
 }
 
 
-//Edit status or Complete Assignment
-/*find the assignment in Assigned list. call add on the completed list. Delete from assignment list*/
 bool UserInterface::editStatusMainMenu()
 {
     string assignDate;
